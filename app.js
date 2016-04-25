@@ -2,7 +2,7 @@ require('dotenv').load();
 const express = require("express"),
     app = express(),
     port = 3000 || process.env.PORT
-    routes = require('./routes'),
+    routes = require('./routes/index'),
     methodOverride = require("method-override"),
     bodyParser = require("body-parser"),
     bcryt = require('bcrypt'),
@@ -27,6 +27,8 @@ app.use(flash());
 
 app.use('/users',routes.users);
 app.use('/places',routes.places);
+app.use('/places/:id/reviews',routes.reviews);
+
 app.use(express.static(__dirname + "/public"));
 
 app.get('/',(req,res) => {
@@ -38,3 +40,4 @@ app.get('*',(req,res) => {
 });
 
 app.listen(port,()=> console.log(`Listening on port ${port}`));
+module.exports = app;

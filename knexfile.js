@@ -22,6 +22,12 @@ module.exports = {
       tableName: 'knex_migrations'
     }
   },
+  test:{
+    client:'pg',
+    connection:{
+      database:'codeSpot_test'
+    }
+  },
 
   production: {
     client: 'postgresql',
