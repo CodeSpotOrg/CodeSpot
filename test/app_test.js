@@ -46,7 +46,8 @@ afterEach(done=>{
 
 // Test for Users
 xdescribe('GET /users',()=>{
-	it('should return JSON', done=>{
+
+	it('should respond with JSON', done=>{
 		request(app)
 		.get('/users')
 		.expect('Content-type', /json/)
@@ -76,12 +77,6 @@ xdescribe('GET /users',()=>{
 });
 
 xdescribe('GET /users/:id',()=>{
-	it('should return JSON', done=>{
-		request(app)
-		.get('/users/1')
-		.expect('Content-type', /json/)
-		.expect(200,done);
-	});
 
 	it('returns the user with the requested id',done=>{
 		request(app)
@@ -95,9 +90,39 @@ xdescribe('GET /users/:id',()=>{
 			done();
 		});
 	});
+
+	it('returns a 404 error if there is no user with the given id',done=>{
+		request(app)
+		.get('/users/100')
+		.end((err,res)=>{
+			expect(res.status).to.equal(404);
+			done();
+		});
+	});
 });
 
-describe('POST /users',()=>{
+xdescribe('GET /users/:id/edit',()=>{
+	it('it returns the user with the requested id to edit',done=>{
+		request(app)
+		.get('/users/2/edit')
+		.end((err,res)=>{
+			expect(res.body.user.id).to.equal(2);
+			expect(res.body.user.username).to.equal('Forrest');
+			done();
+		});
+	});
+
+	it('returns a 404 error if there is no user with the given id',done=>{
+		request(app)
+		.get('/users/100')
+		.end((err,res)=>{
+			expect(res.status).to.equal(404);
+			done();
+		});
+	});
+});
+
+xdescribe('POST /users',()=>{
 	var newUser = {
 		user:{
 			id:4,
@@ -106,19 +131,115 @@ describe('POST /users',()=>{
 		}
 	};
 
-	it('should respond with JSON', done=>{
+	var wrongData = {
+		user:{
+			username:2,
+			email:'blackpan@me.com'
+		}
+	};
+	
+	it('adds the new user to the database', done=>{
 		request(app)
 		.post('/users')
 		.type('form')
 		.send(newUser)
-		.expect('Content-type', /json/)
-		.expect(200,done);
+		.end((err,res)=>{
+			knex('users').then(users=>{
+				expect(users).to.have.lengthOf(4);
+				expect(users).to.deep.include(newUser.user);
+				done();
+			});
+		});
 	});
 
-	// it('');
+	it('it returns a 400 if incorrect data type is entered',done=>{
+		request(app)
+		.put('/users/3')
+		.type('form')
+		.send(wrongData)
+		.end((err,res)=>{
+			expect(err.statusCode).to.equal(400);
+			done();
+		});
+	});
 });
-describe('PUT /users/:id',()=>{});
-describe('DELETE /users/:id',()=>{});
+
+xdescribe('PUT /users/:id',()=>{
+
+	var updUser = {
+		user:{
+			username:'Black Panther',
+			email:'blackpan@me.com'
+		}
+	};
+
+	var wrongData = {
+		user:{
+			username:2,
+			email:'blackpan@me.com'
+		}
+	};
+
+	it('updates the user in the database',done=>{
+		request(app)
+		.put('/users/3')
+		.type('form')
+		.send(updUser)
+		.end((err,res)=>{
+			knex('users').where('id',3).first().then(user=>{
+				expect(user.username).to.equal(
+					updUser.user.username);
+				expect(user.email).to.equal(updUser.user.email);
+				done();
+			});
+		});
+	});
+
+	it('it returns a 400 if incorrect data type is entered',done=>{
+		request(app)
+		.put('/users/3')
+		.type('form')
+		.send(wrongData)
+		.end((err,res)=>{
+			expect(err.statusCode).to.equal(400);
+			done();
+		});
+	});
+
+	it('it returns a 404 if the id cannot be found',done=>{
+		request(app)
+		.put('/users/100')
+		.type('form')
+		.send(updUser)
+		.end((err,res)=>{
+			expect(err.statusCode).to.equal(404);
+			done();
+		});
+	});
+});
+
+xdescribe('DELETE /users/:id',()=>{
+
+	it('removes the user from the database',done=>{
+		request(app)
+		.delete('/users/3')
+		.end((err,res)=>{
+			expect(res.body).to.deep.equal({
+				id:3,username:'Troy',email:'troy@me.com'
+			});
+			done();
+		});
+	});
+
+	it('it returns 404 if the id cannot be found',done=>{
+		request(app)
+		.delete('/users/100')
+		.end((err,res)=>{
+			expect(err.statusCode).to.equal(404);
+			done();
+		});
+	});
+});
 
 // Test for places
 describe('GET /places',()=>{});
