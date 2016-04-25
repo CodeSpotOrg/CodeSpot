@@ -28,6 +28,10 @@ beforeEach(done=>{
 
 afterEach(done=>{
 	knex('users').del().then(users=>{
+		// Test to check that users & places are being deleted.
+		// knex('places').del().then(places=>{
+		// 	console.log('users:',users,'\n','places:',places);
+		// });
 		knex('places').del().then(places=>done());
 	});
 });
@@ -74,7 +78,29 @@ xdescribe('GET /users',()=>{
 	});
 });
 
-describe('GET /users/:id',()=>{});
+xdescribe('GET /users/:id',()=>{
+	it('should return JSON', done=>{
+		request(app)
+		.get('/users/1')
+		.expect('Content-type', /json/)
+		.expect(200,done);
+	});
+
+	it('returns the user with the requested id',done=>{
+		request(app)
+		.get('/users/2')
+		.end((err,res)=>{
+			expect(res.body).to.deep.equal({
+				id:2,
+				username:'Forrest',
+				email:'forrest@me.com',
+				password:'second'
+			});	
+			done();
+		});
+	});
+});
+
 describe('POST /users',()=>{});
 describe('PUT /users/:id',()=>{});
 describe('DELETE /users/:id',()=>{});
