@@ -1,4 +1,5 @@
 const users = require('./users'),
-      places = require('./places');
+      places = require('./places'),
+      reviews = require('./reviews');
       
-module.exports = {users,places};
+module.exports = {users,places,reviews};
