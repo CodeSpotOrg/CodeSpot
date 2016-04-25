@@ -9,9 +9,9 @@ beforeEach(done=>{
 		knex('users').insert({id:1,username:'Steve',email:'steve@me.com',password:'first'}),
 		knex('users').insert({id:2,username:'Forrest',email:'forrest@me.com',password:'second'}),
 		knex('users').insert({id:3,username:'Troy',email:'troy@me.com',password:'third'}),
-		knex('places').inser({id:1,name:'We Work',address:'123 Telegraph St, Oakland, CA 94602'}),
-		knex('places').inser({id:2,name:'They Work',address:'123 Howard St, San Francisco, CA 94601'}),
-		knex('places').inser({id:3,name:'I Work',address:'123 MLK St, Berkeley, CA 94600'}),
+		knex('places').insert({id:1,name:'We Work',address:'123 Telegraph St, Oakland, CA 94602'}),
+		knex('places').insert({id:2,name:'They Work',address:'123 Howard St, San Francisco, CA 94601'}),
+		knex('places').insert({id:3,name:'I Work',address:'123 MLK St, Berkeley, CA 94600'}),
 		knex('places').insert({id:4,name:'Galvanize',address:'44 Tehama St, San Francisco, CA 94500'})
 		]).then(()=>{
 			return Promise.all([
@@ -41,7 +41,7 @@ afterEach(done=>{
 
 
 // Test for Users
-describe('GET /users',()=>{
+xdescribe('GET /users',()=>{
 	it('should return JSON', done=>{
 		request(app)
 		.get('/users')
@@ -49,7 +49,29 @@ describe('GET /users',()=>{
 		.expect(200,done);
 	});
 
-	
+	it('returns an array of all the users objects when responding with JSON', done=>{
+		request(app)
+		.get('/users')
+		.end((err,res)=>{
+			expect(res.body).to.deep.equal([{
+				id:1,
+				username:'Steve',
+				email:'steve@me.com',
+				password:'first'
+			},{
+				id:2,
+				username:'Forrest',
+				email:'forrest@me.com',
+				password:'second'
+			},{
+				id:3,
+				username:'Troy',
+				email:'troy@me.com',
+				password:'third'
+			}]);
+			done();
+		});
+	});
 });
 
 describe('GET /users/:id',()=>{});
