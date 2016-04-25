@@ -25,7 +25,7 @@ module.exports = {
   test:{
     client:'pg',
     connection:{
-      database:'codeSpot'
+      database:'codeSpot_test'
     }
   },
 
