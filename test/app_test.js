@@ -41,7 +41,17 @@ afterEach(done=>{
 
 
 // Test for Users
-describe('GET /users',()=>{});
+describe('GET /users',()=>{
+	it('should return JSON', done=>{
+		request(app)
+		.get('/users')
+		.expect('Content-type', /json/)
+		.expect(200,done);
+	});
+
+	
+});
+
 describe('GET /users/:id',()=>{});
 describe('POST /users',()=>{});
 describe('PUT /users/:id',()=>{});
