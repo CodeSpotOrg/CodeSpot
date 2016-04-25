@@ -58,6 +58,7 @@ xdescribe('GET /users',()=>{
 		request(app)
 		.get('/users')
 		.end((err,res)=>{
+			expect(res.body).to.have.lengthOf(3);
 			expect(res.body).to.deep.equal([{
 				id:1,
 				username:'Steve',
@@ -137,7 +138,7 @@ xdescribe('POST /users',()=>{
 			email:'blackpan@me.com'
 		}
 	};
-	
+
 	it('adds the new user to the database', done=>{
 		request(app)
 		.post('/users')
@@ -242,8 +243,43 @@ xdescribe('DELETE /users/:id',()=>{
 });
 
 // Test for places
-describe('GET /places',()=>{});
-describe('GET /places/:id',()=>{});
+xdescribe('GET /places',()=>{
+	it('responds with JSON', done=>{
+		request(app)
+		.get('/places')
+		.expect('Content-type',/json/)
+		.expect(200,done);
+	});
+
+	it('returns an array of all places objects when responding with JSON',done=>{
+		request(app)
+		.get('/places')
+		.end((err,res)=>{
+			expect(res.body).to.have.lengthOf(4);
+			expect(res.body).to.deep.equal([{
+				id:1,
+				name:'We Work',
+				address:'123 Telegraph St, Oakland, CA 94602'
+			},{
+				id:2,
+				name:'They Work',
+				address:'123 Howard St, San Francisco, CA 94601'
+			},{
+				id:3,
+				name:'I Work',
+				address:'123 MLK St, Berkeley, CA 94600'
+			},{
+				id:4,
+				name:'Galvanize',
+				address:'44 Tehama St, San Francisco, CA 94500'
+			}]);
+		});
+	});
+});
+
+describe('GET /places/:id',()=>{
+
+});
 describe('POST /places',()=>{});
 // describe('PUT /places/:id',()=>{});
 // describe('DELETE /places/:id',()=>{});
