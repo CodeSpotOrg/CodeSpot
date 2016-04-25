@@ -60,18 +60,15 @@ xdescribe('GET /users',()=>{
 			expect(res.body).to.deep.equal([{
 				id:1,
 				username:'Steve',
-				email:'steve@me.com',
-				password:'first'
+				email:'steve@me.com'
 			},{
 				id:2,
 				username:'Forrest',
-				email:'forrest@me.com',
-				password:'second'
+				email:'forrest@me.com'
 			},{
 				id:3,
 				username:'Troy',
-				email:'troy@me.com',
-				password:'third'
+				email:'troy@me.com'
 			}]);
 			done();
 		});
@@ -94,14 +91,32 @@ xdescribe('GET /users/:id',()=>{
 				id:2,
 				username:'Forrest',
 				email:'forrest@me.com',
-				password:'second'
 			});	
 			done();
 		});
 	});
 });
 
-describe('POST /users',()=>{});
+describe('POST /users',()=>{
+	var newUser = {
+		user:{
+			id:4,
+			username:'Major Lazer',
+			email:'majorlazer@me.com'
+		}
+	};
+
+	it('should respond with JSON', done=>{
+		request(app)
+		.post('/users')
+		.type('form')
+		.send(newUser)
+		.expect('Content-type', /json/)
+		.expect(200,done);
+	});
+
+	// it('');
+});
 describe('PUT /users/:id',()=>{});
 describe('DELETE /users/:id',()=>{});
 
