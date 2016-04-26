@@ -22,6 +22,7 @@ app.use(methodOverride("_method"));
 
 require('./config/passport')(passport);
 app.use(session({secret:process.env.SECRET}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());

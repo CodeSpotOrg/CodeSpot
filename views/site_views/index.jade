@@ -1,3 +1,50 @@
 extends ../partials/header
 block content
-  h1 test
+  #body.container
+    .row
+        .col-xs-1.margin
+        .col-xs-10.text-center.body
+          h2 find a workspace
+          iframe(width='75%', height='300px', src='https://www.google.com/maps/embed/v1/place?q=san%20francisco&zoom=12&key=AIzaSyBvhEe5mLz5heUDwCWPskZB3nkbAg1quV0')
+        .col-xs-1.margin
+      .row
+        .col-md-1.margin
+        .col-md-5.text-center.body.border-solid
+          h2 park hideaway
+          img#locationPhoto(src='http://www.corvallisadvocate.com/wp-content/uploads/2015/10/porta-potty.jpg')
+          br
+          i.fa.fa-star(aria-hidden='true')
+          i.fa.fa-star(aria-hidden='true')
+          i.fa.fa-star(aria-hidden='true')
+          i.fa.fa-star(aria-hidden='true')
+          br
+          a(href='#') see more
+        .col-md-5.text-center.body.border-solid
+          h2 lowkey cafe
+          img#locationPhoto(src='https://getpreo.com/wp-content/uploads/2014/06/starbuckscrowd1.jpg')
+          br
+          i.fa.fa-star(aria-hidden='true')
+          i.fa.fa-star(aria-hidden='true')
+          br
+          a(href='#') see more
+        .col-md-1.margin
+      .row
+        .col-xs-1.margin
+        .col-md-5.text-center.body.border-solid
+          h2 bunch of nerds
+          img#locationPhoto(src='http://sfpl.org/images/about/blip/noevalley/noevalley9.jpg')
+          br
+          i.fa.fa-star(aria-hidden='true')
+          i.fa.fa-star(aria-hidden='true')
+          i.fa.fa-star(aria-hidden='true')
+          i.fa.fa-star(aria-hidden='true')
+          br
+          a(href='#') see more
+        .col-md-5.text-center.body.border-solid
+          h2 boutique shopping center
+          img#locationPhoto(src='http://joemiller.us/wp-content/uploads/WALMART-DFR-082213-7_40880253.jpg')
+          br
+          i.fa.fa-star(aria-hidden='true')
+          br
+          a(href='#') see more
+        .col-md-1.margin
