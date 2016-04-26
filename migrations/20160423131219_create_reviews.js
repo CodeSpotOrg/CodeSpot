@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     table.text('content').notNullable();
     table.integer('user_id').unsigned().index().references('users.id').notNullable().onDelete('cascade');
     table.integer('place_id').unsigned().index().references('places.id').notNullable().onDelete('cascade');
+    table.integer('rating');
     table.boolean('wifi');
     table.boolean('outlets');
     table.boolean('restrooms');
