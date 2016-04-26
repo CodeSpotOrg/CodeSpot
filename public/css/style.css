@@ -1,6 +1,12 @@
 #locationPhoto{
 	height:200px;
 }
+
+#map-canvas {
+	width: 75%;
+	height: 300px;
+}
+ 
 body{
 	background-image:url('http://kaba35.com/wp-content/uploads/2015/11/Savin-NY-Website-Background-Web.jpg');
 	background-attachment: fixed;
