@@ -103,7 +103,7 @@ xdescribe('GET /users/:id',()=>{
 });
 
 xdescribe('GET /users/:id/edit',()=>{
-	it('it returns the user with the requested id to edit',done=>{
+	it('returns the user with the requested id to edit',done=>{
 		request(app)
 		.get('/users/2/edit')
 		.end((err,res)=>{
@@ -153,7 +153,7 @@ xdescribe('POST /users',()=>{
 		});
 	});
 
-	it('it returns a 400 if incorrect data type is entered',done=>{
+	it('returns a 400 if incorrect data type is entered',done=>{
 		request(app)
 		.put('/users/3')
 		.type('form')
@@ -196,7 +196,7 @@ xdescribe('PUT /users/:id',()=>{
 		});
 	});
 
-	it('it returns a 400 if incorrect data type is entered',done=>{
+	it('returns a 400 if incorrect data type is entered',done=>{
 		request(app)
 		.put('/users/3')
 		.type('form')
@@ -207,7 +207,7 @@ xdescribe('PUT /users/:id',()=>{
 		});
 	});
 
-	it('it returns a 404 if the id cannot be found',done=>{
+	it('returns a 404 if the id cannot be found',done=>{
 		request(app)
 		.put('/users/100')
 		.type('form')
@@ -232,7 +232,7 @@ xdescribe('DELETE /users/:id',()=>{
 		});
 	});
 
-	it('it returns 404 if the id cannot be found',done=>{
+	it('returns 404 if the id cannot be found',done=>{
 		request(app)
 		.delete('/users/100')
 		.end((err,res)=>{
@@ -277,26 +277,376 @@ xdescribe('GET /places',()=>{
 	});
 });
 
-describe('GET /places/:id',()=>{
+xdescribe('GET /places/:id',()=>{
+	it('returns the place with the requested id',done=>{
+		request(app)
+		.get('/places/2')
+		.end((err,res)=>{
+			expect(res.body).to.deep.equal([{
+				id:2,
+				name:'They Work',
+				address:'123 Howard St, San Francisco, CA 94601'		
+			}]);
+			done();
+		});
+	});
 
+	it('returns a 404 if the place with the requested id cannot be found',done=>{
+		request(app)
+		.get('/places/100')
+		.end((err,res)=>{
+			expect(err.statusCode).to.equal(404);
+			done();
+		});
+	});
 });
-describe('POST /places',()=>{});
+
+xdescribe('POST /places',()=>{
+	var newPlace = {
+		place:{
+			id:5,
+			name:'Should Work',
+			address:'456 Howard St, Palo Alto, CA 94601'
+		}
+	};
+
+	var wrongData = {
+		place:{
+			id:5,
+			name:6,
+			address:899
+		}
+	};
+
+	it('adds a new place to the database',done=>{
+		request(app)
+		.post('/places')
+		.type('form')
+		.send(newPlace)
+		.end((err,res)=>{
+			expect(res.body).to.have.lengthOf(5);
+			expect(users).to.deep.include(newPlace.place);
+		});
+	});
+
+	it('returns a 400 if incorrect data type is entered',done=>{
+		request(app)
+		.post('/places')
+		.type('form')
+		.send(wrongData)
+		.end((err,res)=>{
+			expect(err.statusCode).to.equal(400);
+			done();
+		});
+	});
+});
 // describe('PUT /places/:id',()=>{});
 // describe('DELETE /places/:id',()=>{});
 
 // Test for reviews
-describe('GET /places/:id/reviews',()=>{});
-describe('GET /places/:id/reviews/:id',()=>{});
-describe('POST /places/:id/reviews',()=>{});
-describe('PUT /places/:id/reviews/:id',()=>{});
-describe('DELETE /places/:id/reviews/:id',()=>{});
+xdescribe('GET /places/:id/reviews',()=>{
+
+	it('responds with JSON',done=>{
+		request(app)
+		.get('/places/2/reviews')
+		.expect('Content-type',/json/)
+		.expect(200,done);
+	});
+
+	it('returns an array of all review objects',done=>{
+		request(app)
+		.get('/places/2/reviews')
+		.end((err,res)=>{
+			expect(res.body).to.deep.equal([{
+				id:2,
+				content:'It\'s an alright place.',
+				user_id:1,
+				place_id:2
+			}]);
+			done();
+		});
+	});
+});
+
+xdescribe('GET /places/:id/reviews/:id',()=>{
+	it('returns the review with the requested id',done=>{
+		request(app)
+		.get('/places/1/reviews/1')
+		.end((err,res)=>{
+			expect(res.body).to.deep.equal({
+				id:1,
+				content:'This place rocks',
+				user_id:2,
+				place_id:1
+			});	
+			done();
+		});
+	});
+
+	it('returns 404 if the id cannot be found',done=>{
+		request(app)
+		.get('/places/1/reviews/100')
+		.end((err,res)=>{
+			expect(err.statusCode).to.equal(404);
+			done();
+		});
+	});
+});
+
+xdescribe('POST /places/:id/reviews',()=>{
+	var newReview = {
+		review:{
+			id:4,
+			content:'This place rocks',
+			user_id:3,
+			place_id:1	
+		}
+	}
+
+	var wrongData = {
+		place:{
+			id:4,
+			content:'Dope spot',
+			user_id:'three',
+			place_id: 'one'
+		}
+	};
+
+	it('adds new review to the database',done=>{
+		request(app)
+		.post('/places/1/reviews')
+		.type('form')
+		.send(newReview)
+		.end((err,res)=>{
+			expect(res.body).to.have.lengthOf(4);
+			expect(users).to.deep.include(newReview.review);
+			done();
+		});
+	});
+
+	it('responds with 400 if the incorrect data type is entered',done=>{
+		request(app)
+		.post('/places/1/reviews')
+		.type('form')
+		.send(wrongData)
+		.end((err,res)=>{
+			expect(err.statusCode).to.equal(400);
+			done();
+		});
+	});
+});
+
+xdescribe('PUT /places/:id/reviews/:id',()=>{
+
+	var updReview = {
+		review:{
+			content:'This place sucks',
+			user_id:3,
+			place_id:1	
+		}
+	}
+
+	var wrongData = {
+		place:{
+			content:'Dope spot',
+			user_id:'three',
+			place_id: 'one'
+		}
+	};
+
+	it('updates the review in the database',done=>{
+		request(app)
+		.put('/places/1/reviews/1')
+		.type('form')
+		.send(updReview)
+		.end((err,res)=>{
+			knex('places').where('id',1).first().then(review=>{
+				expect(review.review).to.deep.equal({
+					content:'This place sucks',
+					user_id:3,
+					place_id:1
+				});
+				done();
+			});
+		});
+	});
+
+	it('returns a 400 if incorrect data type is entered',done=>{
+		request(app)
+		.put('/places/1/reviews/1')
+		.type('form')
+		.send(wrongData)
+		.end((err,res)=>{
+			expect(err.statusCode).to.equal(400);
+			done();
+		});
+	});
+
+	it('returns a 404 if the id cannot be found',done=>{
+		request(app)
+		.put('/places/1/reviews/100')
+		.type('form')
+		.send(updUser)
+		.end((err,res)=>{
+			expect(err.statusCode).to.equal(404);
+			done();
+		});
+	});
+});
+
+xdescribe('DELETE /places/:id/reviews/:id',()=>{
+
+	it('removes the review from the database',done=>{
+		request(app)
+		.delete('/places/1/reviews/1')
+		.end((err,res)=>{
+			expect(res.body).to.deep.equal({
+				id:1,
+				content:'This place rocks',
+				user_id:2,
+				place_id:1
+			});
+			done();
+		});
+	});
+
+	it('returns 404 if the id cannot be found',done=>{
+		request(app)
+		.delete('/places/1/reviews/100')
+		.end((err,res)=>{
+			expect(err.statusCode).to.equal(404);
+			done();
+		});
+	});
+});
 
 // Test for photos
-describe('GET /places/:id/photos',()=>{});
+// describe('GET /places/:id/photos',()=>{});
 // describe('GET /places/:id/photos/:id',()=>{})
-describe('POST /places/:id/photos',()=>{});
-describe('PUT /places/:id/photos/:id',()=>{});
-describe('DELETE /places/:id/photos/:id',()=>{});
+
+xdescribe('POST /places/:id/photos',()=>{
+
+	var newPhoto = {
+		photo:{
+			id:5, 
+			url:'https://nyoobserver.files.wordpress.com/2015/06/gettyimages-479699835.jpg?quality=80',
+			caption:'Another Oakland CodeSpot',
+			user_id:1,
+			place_id:1
+		}
+	};
+
+	var wrongData = {
+		photo:{
+			id:5,
+			url:343,
+			caption:'Alameda',
+			user_id:'one',
+			place_id:'one'
+		}
+	};
+
+	it('adds a new photo to the database',done=>{
+		request(app)
+		.post('/places/1/photos')
+		.type('form')
+		.send(newPhoto)
+		.end((err,res)=>{
+			expect(res.body).to.include(newPhoto);
+			done();
+		});
+	});
+
+	it('returns 400 if the incorrect data type is entered',done=>{
+		request(app)
+		.post('/places/1/photos')
+		.type('form')
+		.send(wrongData)
+		.end((err,res)=>{
+			expect(err.statusCode).to.equal(400);
+			done();
+		});
+	});
+
+});
+
+xdescribe('PUT /places/:id/photos/:id',()=>{
+
+	var updPhoto = {
+		photo:{
+			url:'http://launchablemag.com/assets/images/upload/coworking.jpg',
+			caption:'Other Oakland CodeSpot',
+			user_id:1,
+			place_id:1
+		}
+	};
+
+	var wrongData = {
+		photo:{
+			url:343,
+			caption:'Alameda',
+			user_id:'one',
+			place_id:'one'	
+		}
+	}
+
+	it('updates the photo in the database',done=>{
+		request(app)
+		.put('/places/1/photos/1')
+		.type('form')
+		.send(updPhoto)
+		.end((err,res)=>{
+			knex('photos').where('id',1).first().then(photo=>{
+				expect(photo.photo).to.deep.equal({
+					url:'http://launchablemag.com/assets/images/upload/coworking.jpg',
+					caption:'Other Oakland CodeSpot',
+					user_id:1,
+					place_id:1
+				});
+			});
+			done();
+		});
+	});
+
+	it('returns 400 if the incorrect data type is entered',done=>{
+		request(app)
+		.post('/places/1/photos/1')
+		.type('form')
+		.send(wrongData)
+		.end((err,res)=>{
+			expect(err.statusCode).to.equal(400);
+			done();
+		});
+	});
+});
+
+
+xdescribe('DELETE /places/:id/photos/:id',()=>{
+
+	it('removes the photo from the database',done=>{
+		request(app)
+		.delete('/places/1/photos/1')
+		.end((err,res)=>{
+			expect(res.body).to.deep.equal({
+				id:1, 
+				url:'https://nyoobserver.files.wordpress.com/2015/06/gettyimages-479699835.jpg?quality=80',
+				caption:'Oakland CodeSpot',
+				user_id:1,
+				place_id:1
+			});
+			done();
+		});
+	});
+
+	it('returns 404 if the id cannot be found',done=>{
+		request(app)
+		.delete('/places/1/photos/100')
+		.end((err,res)=>{
+			expect(err.statusCode).to.equal(404);
+			done();
+		});
+	});
+});
 
 // Using Bcrypt to hash the passwords
 // bcrypt.hash('password',SALT,(err,hash)=>{
