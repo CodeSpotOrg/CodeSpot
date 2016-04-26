@@ -6,8 +6,6 @@ const bcrypt = require("bcrypt"),
     hash2 = bcrypt.hashSync('passw0rd!', salt2)
     hash3 = bcrypt.hashSync('breXi7%oon', salt3)
 
-
-
 exports.seed = function(knex, Promise) {
   return Promise.join(
     // Deletes ALL existing entries
