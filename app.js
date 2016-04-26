@@ -11,7 +11,7 @@ const express = require("express"),
     passport = require('passport'),
     flash = require('connect-flash'),
     knex = require('./db/knex'),
-    morgan = require("morgan");
+    morgan = require("morgan");  
 
 app.set('view engine', 'jade');
 app.set('views',__dirname + '/views');
@@ -20,7 +20,9 @@ app.use(morgan('tiny'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 
-// app.use(session({secret:process.env.SECRET}));
+require('./config/passport')(passport);
+app.use(session({secret:process.env.SECRET}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -34,6 +36,29 @@ app.use(express.static(__dirname + "/public"));
 app.get('/',(req,res) => {
   res.render('site_views/index');
 });
+
+app.post('/login',passport.authenticate('local-signin',{
+  successRedirect: '/good1', 
+  failureRedirect: '/bad1', 
+  failureFlash: true
+})
+);
+
+app.post('/register',passport.authenticate('local-signup',{
+  successRedirect: '/good2', 
+  failureRedirect: '/bad2', 
+  failureFlash: true})
+);
+
+app.get('/logout',(req,res) => {
+  req.logout();
+  res.redirect('/');
+});
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { successRedirect: '/success',
+                                      failureRedirect: '/failure' }));
 
 app.get('*',(req,res) => {
   res.render('site_views/error');

@@ -4,6 +4,10 @@ module.exports = {
     client: 'pg',
     connection: {
       database: 'codeSpot'
+    },
+    pool: {
+      min: 0,
+      max: 5
     }
   },
 
