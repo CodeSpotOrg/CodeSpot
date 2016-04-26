@@ -7,11 +7,12 @@ html
     // Optional theme
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css', integrity='sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r', crossorigin='anonymous')
     // Latest compiled and minified JavaScript
-    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js', integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS', crossorigin='anonymous')
+
     block scripts
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
     link(rel='stylesheet', type='text/css', href='css/style.css')
   body
+
     // nav
     .row
       nav#mainNav.navbar.navbar-inverse.navbar-fixed-top
@@ -27,20 +28,54 @@ html
             ul.nav.navbar-nav.navbar-right
               li
                 // search bar
-                form.navbar-form.navbar-left.text-center(role='search')
+                form.navbar-form.navbar-left.text-center(role='search' method="post" action="/places")
                   .form-group
-                    input.form-control(type='text', placeholder='Search')
                     button.btn.btn-default(type='submit') Submit
+                    input.form-control(type='text', placeholder='Search')
+                    button.btn.btn-default.btn-sm.dropdown-toggle(type='button', data-toggle='dropdown')
+                      span.caret
+                    ul.dropdown-menu
+                      li
+                        a.small(href='#', data-value='wifi', tabindex='-1')
+                          input(type='checkbox')
+                          |  wifi
+                      li
+                        a.small(href='#', data-value='outlets', tabindex='-1')
+                          input(type='checkbox')
+                          |  outlets
+                      li
+                        a.small(href='#', data-value='restrooms', tabindex='-1')
+                          input(type='checkbox')
+                          |  restrooms
+                      li
+                        a.small(href='#', data-value='food', tabindex='-1')
+                          input(type='checkbox')
+                          |  food
+                      li
+                        a.small(href='#', data-value='coffee', tabindex='-1')
+                          input(type='checkbox')
+                          |  coffee
               li
                 a.page-scroll(href='#about') About
               // if user isn't logged in
-              li#login
-                a.page-scroll(href='#services') Login
+              li
+                a#loginButton(href='') Login
               // if user is logged in
               li#userProfile.hidden
-                a.page-scroll(href='#portfolio') My Profile
+                a.page-scroll(href='#') My Profile
               // if user is logged in
               li.hidden
-                a.page-scroll(href='#contact') Log out
+                a.page-scroll(href='#') Log out
       block content
+
+      //- button#loginButton.btn(type=button) login
+
+      script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+
+      script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js', integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS', crossorigin='anonymous')
+      //- script(src='https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js')
+      // bootbox
+      script(src='javascripts/bootbox.min.js')
+      // local javascript 
+      script(src='javascripts/loginMod.js')
     
