@@ -11,6 +11,7 @@ const express = require("express"),
     passport = require('passport'),
     flash = require('connect-flash'),
     knex = require('./db/knex'),
+    request = require('request');
     morgan = require("morgan");  
 
 app.set('view engine', 'jade');
@@ -34,7 +35,7 @@ app.use('/places/:id/reviews',routes.reviews);
 app.use(express.static(__dirname + "/public"));
 
 app.get('/',(req,res) => {
-  res.render('site_views/index');
+  res.render('site_views/index',{key: process.env.GOOGLE_MAPS_SERVER_KEY});
 });
 
 app.post('/login',passport.authenticate('local-signin',{
@@ -59,7 +60,7 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/success',
                                       failureRedirect: '/failure' }));
-
+  
 app.get('*',(req,res) => {
   res.render('site_views/error');
 });

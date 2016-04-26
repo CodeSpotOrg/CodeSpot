@@ -10,13 +10,8 @@ module.exports = function(passport) {
   });
   passport.deserializeUser((id,done) => {  
     knex('users').where('id',id).first().then(user => {
-      if(user) {
-        delete user.password;
-        done(null,user);
-      }
-      else {
-        done(null,false)
-      }
+      delete user.password;
+      done(null,user);
     }).catch(err => console.log(err));
   });
   passport.use('local-signin', new localStrategy({
