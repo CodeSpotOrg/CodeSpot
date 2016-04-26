@@ -1,10 +1,6 @@
 const express = require('express'),
       router = express.Router({mergeParams:true});
 
-  router.get('/', function(req,res){
-      	res.render('site_views/index.jade', {authors: author});
-  });
-
   router.post('places/', (req,res) => {
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
     var key = '&key=' + process.env.GOOGLE_MAPS_SERVER_KEY;
