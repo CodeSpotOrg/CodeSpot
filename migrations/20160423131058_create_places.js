@@ -3,6 +3,8 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.string('name').notNullable();
     table.string('address').notNullable();
+    table.string('lat');
+    table.string('lng');
   });
 };
 
