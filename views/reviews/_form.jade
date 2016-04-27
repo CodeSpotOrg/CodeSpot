@@ -1,0 +1,19 @@
+div
+	label Content
+	br
+	input(autofocus type="text" name="review[content]" value= review ? review.content : '')
+div
+	label Rating
+	br
+	input(type="text" name="review[rating]" value= review ? review.rating : '')
+div
+	label wifi
+	input(type="checkbox" name="review[]")
+div
+	label Restrooms
+	br
+	input(type="checkbox" name="review[]")
+div
+	label Coffee
+	br
+	input(type="checkbox" name="review[]")

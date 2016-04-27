@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
     table.integer('rating');
     table.boolean('wifi');
     table.boolean('restrooms');
-    table.boolean('coffee');   
+    table.boolean('coffee');
   });
 };
 

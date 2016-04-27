@@ -1,0 +1,5 @@
+extends ../partials/header
+block content
+	h3 Add Review
+	form(action="/places/#{place.id}/reviews" method="POST")
+		include _form
