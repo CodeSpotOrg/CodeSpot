@@ -4,8 +4,8 @@ const express = require('express'),
 
 
 router.get('/new',helpers.ensureAuthenticated,(req,res)=>{
-	var user = req.params;
-	res.render('reviews/new',{user});
+	var place = req.params;
+	res.render('reviews/new',{place});
 });
 
 router.post('/',(req,res)=>{
