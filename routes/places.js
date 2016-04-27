@@ -1,6 +1,7 @@
 'use strict'
 const express = require('express'),
-      router = express.Router({mergeParams:true});
+      router = express.Router({mergeParams:true}),
+      knex = require('../db/knex');
 
 router.get('/',(req,res)=>{
 	console.log('Query',req.query);
@@ -17,6 +18,8 @@ router.get("/new",(req,res)=>{
     request(url + req.body.address + key, (error, response, data) => {
       if (!error && response.statusCode == 200) {
         knex('places').insert({
+          name: req.body.name,
+          address: req.body.address,
           lat: JSON.parse(data).results[0].geometry.location.lat,
           lng: JSON.parse(data).results[0].geometry.location.lng
         });

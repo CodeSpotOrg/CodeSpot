@@ -57,15 +57,24 @@ html
                           |  coffee
               li
                 a.page-scroll(href='#about') About
-              // if user isn't logged in
-              li
-                a#loginButton(href='') Login
-              // if user is logged in
-              li#userProfile.hidden
-                a.page-scroll(href='#') My Profile
-              // if user is logged in
-              li.hidden
-                a.page-scroll(href='#') Log out
+              if (!currentUser)
+                li
+                  a#loginButton(href='') Login
+              else
+                li#userProfile
+                  a.page-scroll(href='/users' + currentUser.id) My Profile 
+                li
+                  a.page-scroll(href='/auth/logout') Log out
+      #login-form
+        form(id='infos', action='/auth/login', method='POST')
+          label Username
+          input(type='text',name='user[username]')
+          label Password
+          input(type='password',name='user[password]')
+          input(type='hidden',name='url')
+          input(type='submit' value='Sign in')
+        a(href="/auth/facebook")
+          div Login with Facebook
       block content
 
       script(src='https://code.jquery.com/jquery-2.1.4.min.js')

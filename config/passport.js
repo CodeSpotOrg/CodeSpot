@@ -2,6 +2,7 @@ const localStrategy = require('passport-local').Strategy,
       FacebookStrategy = require('passport-facebook'),
       //githubStrategy = require('passport-github2'),
       bcrypt = require('bcrypt'),
+      knex = require('../db/knex'),
       SALT_WORK_FACTOR = 10;
 
 module.exports = function(passport) {
@@ -20,6 +21,7 @@ module.exports = function(passport) {
     passwordField: 'user[password]'
   },
     (req,username,password,done) => {
+      req.session.url = req.body.url;
       knex('users').where('username', username).first().then(user => {
         if(!user){
           return done(null,false,{message: 'Invalid username'});
@@ -49,6 +51,7 @@ module.exports = function(passport) {
           knex('users').insert ({
             username: username,
             password: hash,
+            profile_pic: req.body.user.profile_pic,
             email: req.body.user.email
           }).returning('*').then(user => {
             return done(null, user[0],{message: 'Sign up successful'});
@@ -61,7 +64,7 @@ module.exports = function(passport) {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
     callbackURL: "http://localhost:3000/auth/facebook/callback",
-    profileFields: ['displayName', 'email']
+    profileFields: ['displayName', 'email', 'photos']
   },
   function(accessToken, refreshToken, profile, done) {
     knex('users').where('email',profile.emails[0].value).first().then (user => {
@@ -70,7 +73,8 @@ module.exports = function(passport) {
       }
       knex('users').insert({
         username: profile.displayName,
-        email: profile.emails[0].value
+        email: profile.emails[0].value,
+        profile_pic: profile.photos[0]
       }).returning('*').then(user => {
           return done(null, user[0],{message: 'Sign up successful'});
       }).catch(err => console.log(err));

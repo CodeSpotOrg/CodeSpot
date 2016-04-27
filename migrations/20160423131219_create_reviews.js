@@ -6,11 +6,8 @@ exports.up = function(knex, Promise) {
     table.integer('place_id').unsigned().index().references('places.id').notNullable().onDelete('cascade');
     table.integer('rating');
     table.boolean('wifi');
-    table.boolean('outlets');
     table.boolean('restrooms');
-    table.boolean('food');
-    table.boolean('coffee');
-    table.boolean('outdoors');
+    table.boolean('coffee');   
   });
 };
 
