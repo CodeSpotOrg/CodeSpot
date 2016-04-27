@@ -2,8 +2,8 @@
 	height:200px;
 }
 
-#map-canvas {
-	width: 75%;
+#map-canvas{
+	width: 100%;
 	height: 300px;
 }
  
@@ -30,4 +30,24 @@ body{
 
 #loginForm{
 	display: none;
+}
+
+#reviewCol{
+	padding:0;
+	
+}
+.newPlaceText{
+	width:75%;
+	text-align:center;
+}
+
+td{
+	padding:5px;
+}
+
+#reviewInput{
+	width:100%;
+	height:100px;
+	overflow: hidden;
+	resize: none;
 }
