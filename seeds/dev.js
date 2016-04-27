@@ -16,9 +16,9 @@ exports.seed = function(knex, Promise) {
     knex('users').insert({id: 1,username: 'user1',email: 'email1@gmail.com',password:hash1}),
     knex('users').insert({id: 2,username: 'user2',email: 'email2@gmail.com',password:hash2}),
     knex('users').insert({id: 3,username: 'user3',email: 'email3@gmail.com',password:hash3}),
-    knex('places').insert({id: 1, name: 'Galvanize', address: '44 Tehama St, San Francisco'}),
-    knex('places').insert({id: 2, name: 'Java Beach Cafe', address: '1396 La Playa St, San Francisco'}),
-    knex('places').insert({id: 3, name: 'Chinese Pavilion at Stow Lake', address: '-.4736, 7684'})
+    knex('places').insert({id: 1, name: 'Galvanize', address: '44 Tehama St, San Francisco', lat: '37.775', lng: '-122.4183333'}),
+    knex('places').insert({id: 2, name: 'Java Beach Cafe', address: '1396 La Playa St, San Francisco',lat: '37.7604',lng: '-122.50914'}),
+    knex('places').insert({id: 3, name: 'Chinese Pavilion at Stow Lake', address: '-.4736, 7684', lat: '37.7684', lng: '-122.4736'})
   ).then (() => {
       return Promise.join(
         // Deletes ALL existing entries
