@@ -17,7 +17,7 @@ module.exports = function(passport) {
   passport.use('local-signin', new localStrategy({
     passReqToCallback: true,
     usernameField: 'user[username]',
-    passwordField: 'user[password]'
+    passwordField: 'user[password]',
   },
     (req,username,password,done) => {
       knex('users').where('username', username).first().then(user => {
@@ -49,6 +49,7 @@ module.exports = function(passport) {
           knex('users').insert ({
             username: username,
             password: hash,
+            profile_pic: req.body.user.profile_pic,
             email: req.body.user.email
           }).returning('*').then(user => {
             return done(null, user[0],{message: 'Sign up successful'});
@@ -61,7 +62,7 @@ module.exports = function(passport) {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
     callbackURL: "http://localhost:3000/auth/facebook/callback",
-    profileFields: ['displayName', 'email']
+    profileFields: ['displayName', 'email', 'photos']
   },
   function(accessToken, refreshToken, profile, done) {
     knex('users').where('email',profile.emails[0].value).first().then (user => {
@@ -70,7 +71,8 @@ module.exports = function(passport) {
       }
       knex('users').insert({
         username: profile.displayName,
-        email: profile.emails[0].value
+        email: profile.emails[0].value,
+        profile_pic: profile.photos[0]
       }).returning('*').then(user => {
           return done(null, user[0],{message: 'Sign up successful'});
       }).catch(err => console.log(err));
