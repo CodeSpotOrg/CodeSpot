@@ -1,7 +1,12 @@
+'use strict'
 const express = require('express'),
       router = express.Router({mergeParams:true});
 
-  router.post('places/', (req,res) => {
+// router.get('/',(req,res)=>{
+// I have to write an update to the search form.
+// });
+
+  router.post('/', (req,res) => {
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
     var key = '&key=' + process.env.GOOGLE_MAPS_SERVER_KEY;
     request(url + req.body.address + key, (error, response, data) => {
@@ -20,4 +25,5 @@ const express = require('express'),
       res.send({places});
     });
 });
+
 module.exports = router;
