@@ -2,9 +2,10 @@
 const express = require('express'),
       router = express.Router({mergeParams:true});
 
-// router.get('/',(req,res)=>{
-// I have to write an update to the search form.
-// });
+router.get('/',(req,res)=>{
+	console.log('Query',req.query);
+	// knex('places').where()
+});
 
   router.post('/', (req,res) => {
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
