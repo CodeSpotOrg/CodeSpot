@@ -1,6 +1,7 @@
 const express = require('express'),
       router = express.Router({mergeParams:true}),
-      helpers = require('../helpers/authHelpers');
+      helpers = require('../helpers/authHelpers'),
+      knex = require('../db/knex');
 
 
 router.get('/new',helpers.ensureAuthenticated,(req,res)=>{

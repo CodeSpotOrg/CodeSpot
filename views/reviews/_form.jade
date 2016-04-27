@@ -5,7 +5,7 @@ div
 div
 	label Rating
 	br
-	input(type="text" name="review[rating]" value= review ? review.rating : '')
+	input(type="number" name="review[rating]" value= review ? review.rating : '')
 div
 	label wifi &nbsp
 	input(type="checkbox" name="review[]")
@@ -15,3 +15,6 @@ div
 div
 	label Coffee &nbsp
 	input(type="checkbox" name="review[]")
+div
+	br
+	input(type="submit" value=val || 'Submit')
