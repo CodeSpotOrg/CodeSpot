@@ -1,0 +1,54 @@
+extends ../partials/header
+block content
+  #body.container
+        .row
+          .col-xs-1.margin
+          .col-xs-10.text-center.body
+            h1 Add your favorite place to work
+            br
+            form(method='POST', action='/places')
+              .row.row-eq-height
+                .col-md-2
+                .col-md-4.text-center
+                  input.newPlaceText(name='place[name]', type='text', placeholder='Spot name')
+                  br
+                  input.newPlaceText(name='place[address]', type='text', placeholder='address')
+                  br
+                  table.text-left(align='center')
+                    tr
+                      td
+                        input(type='checkbox', name='review[wifi]/')
+                        |  wifi
+                      td
+                        input(type='checkbox', name='review[outlets]/')
+                        |  outlets
+                      td
+                        input(type='checkbox', name='review[restrooms]/')
+                        |  restrooms
+                    tr
+                      td
+                        input(type='checkbox', name='review[food]/')
+                        |  food
+                      td
+                        input(type='checkbox', name='review[coffee]/')
+                        |  coffee
+                      td
+                        input(type='checkbox', name='review[outside]/')
+                        |  outside
+                #reviewCol.col-md-4
+                  textarea#reviewInput(type='text', name='review[content]') write a review here
+                  br
+                  |                 rating:
+                  select(name='review[rating]')
+                    option(value='1') 1/5
+                    option(value='2') 2/5
+                    option(value='3') 3/5
+                    option(value='4') 4/5
+                    option(value='5') 5/5
+                .col-md-2
+              br
+              button.btn(type='submit') Add place
+          .col-xs-1.margin
+
+block scripts
+script(src="javascripts/reviewClearForm.js")

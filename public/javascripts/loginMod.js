@@ -10,11 +10,11 @@ $(document).ready(function(){
             <form id='infos' action=''>\
                 <tr>\
                     <td class='text-right'>Email:</td>\
-                    <td><input type='text' name='first_name' /></td>\
+                    <td><input type='text' name='email' /></td>\
                 </tr>\
                 <tr>\
                     <td>Password:</td>\
-                    <td><input type='text' name='last_name' /></td>\
+                    <td><input type='password' name='password' /></td>\
                 </tr>\
             </form>\
             </table>\
@@ -24,7 +24,7 @@ $(document).ready(function(){
             $('#infos').submit();
         }).find("div.modal-content").addClass("loginModal");
     })
-    
+
     $( '.dropdown-menu a' ).on( 'click', function( event ) {
 
    var $target = $( event.currentTarget ),

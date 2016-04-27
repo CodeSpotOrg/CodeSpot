@@ -7,6 +7,10 @@ router.get('/',(req,res)=>{
 	// knex('places').where()
 });
 
+router.get("/new",(req,res)=>{
+	res.render('place_views/new')
+});
+
   router.post('/', (req,res) => {
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
     var key = '&key=' + process.env.GOOGLE_MAPS_SERVER_KEY;
