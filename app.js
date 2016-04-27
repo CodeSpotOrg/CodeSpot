@@ -1,18 +1,19 @@
 require('dotenv').load();
 const express = require("express"),
     app = express(),
-    port = 3000 || process.env.PORT
+    port = 3000 || process.env.PORT,
+    SALT_WORK_FACTOR = 10,
     routes = require('./routes/index'),
+    authHelpers = require('./helpers/authHelpers'),
     methodOverride = require("method-override"),
     bodyParser = require("body-parser"),
     bcryt = require('bcrypt'),
-    SALT_WORK_FACTOR = 10,
     session = require('cookie-session'),
     passport = require('passport'),
     flash = require('connect-flash'),
     knex = require('./db/knex'),
-    request = require('request');
-    morgan = require("morgan");  
+    request = require('request'),
+    morgan = require("morgan"); 
 
 app.set('view engine', 'jade');
 app.set('views',__dirname + '/views');
@@ -28,6 +29,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+app.use(authHelpers.idUser);
 app.use('/users',routes.users);
 app.use('/places',routes.places);
 app.use('/places/:id/reviews',routes.reviews);
@@ -43,12 +45,6 @@ app.post('/login',passport.authenticate('local-signin',{
   failureRedirect: '/bad1', 
   failureFlash: true
 })
-);
-
-app.post('/register',passport.authenticate('local-signup',{
-  successRedirect: '/good2', 
-  failureRedirect: '/bad2', 
-  failureFlash: true})
 );
 
 app.get('/logout',(req,res) => {

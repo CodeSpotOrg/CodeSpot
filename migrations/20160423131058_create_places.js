@@ -5,6 +5,9 @@ exports.up = function(knex, Promise) {
     table.string('address').notNullable();
     table.string('lat');
     table.string('lng');
+    table.boolean('wifi');
+    table.boolean('restrooms');
+    table.boolean('coffee');
   });
 };
 

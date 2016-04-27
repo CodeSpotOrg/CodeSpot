@@ -2,17 +2,17 @@ const express = require('express'),
       router = express.Router({mergeParams:true}),
       bcrypt = require('bcrypt'),
       SALT_WORK_FACTOR = 10,
+      passport = require('passport'),
       knex = require('../db/knex');
-//show edit new
+require('../config/passport')(passport);
 
 router .get('/:id', (req,res) => {
   res.render('user_views/show');
 });
 
-router.post('/',passport.authenticate('local-signup',{
-  successRedirect: req.url, 
-  failureRedirect: req.url, 
-  failureFlash: true})
+router.post('/',passport.authenticate('local-signup',{failureFlash: true}, (req,res) => {
+  res.redirect(req.url);
+})
 );
 
 
