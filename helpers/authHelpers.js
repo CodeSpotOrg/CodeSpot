@@ -6,7 +6,7 @@ module.exports = {
 			return next();
 		} else {
 			req.flash('message', 'Please login');
-			req.redirect('/users/login')
+			res.redirect('/users/login')
 		}
 	}
 };
