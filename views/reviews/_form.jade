@@ -1,11 +1,11 @@
 div
 	label Content
 	br
-	input(type="text")
+	input(autofocus type="text" name="review[content]" value= review ? review.content : '')
 div
 	label Rating
 	br
-	input(type="text")
+	input(type="text" name="review[rating]" value= review ? review.rating : '')
 div
 	label wifi
 	input(type="checkbox" name="review[]")
