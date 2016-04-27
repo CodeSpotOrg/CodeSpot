@@ -1,6 +1,7 @@
 'use strict'
 const express = require('express'),
-      router = express.Router({mergeParams:true});
+      router = express.Router({mergeParams:true}),
+      knex = require('../db/knex');
 
 router.get('/',(req,res)=>{
 	console.log('Query',req.query);

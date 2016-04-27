@@ -2,30 +2,13 @@ var options = [];
 
 
 $(document).ready(function(){
-    $("#loginButton").click(function(e){
-        e.preventDefault();
-        bootbox.confirm("\
-            <center>\
-            <table>\
-            <form id='infos' action=''>\
-                <tr>\
-                    <td class='text-right'>Email:</td>\
-                    <td><input type='text' name='email' /></td>\
-                </tr>\
-                <tr>\
-                    <td>Password:</td>\
-                    <td><input type='password' name='password' /></td>\
-                </tr>\
-            </form>\
-            </table>\
-            </center>\
-            ", function(result) {
-        if(result)
-            $('#infos').submit();
-        }).find("div.modal-content").addClass("loginModal");
+   $('input[name=url]').val(window.location.href);
+    $('#loginButton').click(function(e) {
+      e.preventDefault();
+      $('#login-form').slideToggle('slow')
     })
-
-    $( '.dropdown-menu a' ).on( 'click', function( event ) {
+ 
+  $( '.dropdown-menu a' ).on( 'click', function( event ) {
 
    var $target = $( event.currentTarget ),
        val = $target.attr( 'data-value' ),
@@ -44,5 +27,5 @@ $(document).ready(function(){
       
    console.log( options );
    return false;
-});
+  });
 })

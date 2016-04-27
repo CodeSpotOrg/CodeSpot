@@ -2,6 +2,7 @@ const localStrategy = require('passport-local').Strategy,
       FacebookStrategy = require('passport-facebook'),
       //githubStrategy = require('passport-github2'),
       bcrypt = require('bcrypt'),
+      knex = require('../db/knex'),
       SALT_WORK_FACTOR = 10;
 
 module.exports = function(passport) {
@@ -17,9 +18,10 @@ module.exports = function(passport) {
   passport.use('local-signin', new localStrategy({
     passReqToCallback: true,
     usernameField: 'user[username]',
-    passwordField: 'user[password]',
+    passwordField: 'user[password]'
   },
     (req,username,password,done) => {
+      req.session.url = req.body.url;
       knex('users').where('username', username).first().then(user => {
         if(!user){
           return done(null,false,{message: 'Invalid username'});

@@ -33,29 +33,13 @@ app.use(authHelpers.idUser);
 app.use('/users',routes.users);
 app.use('/places',routes.places);
 app.use('/places/:id/reviews',routes.reviews);
+app.use('/auth',routes.auth);
 
 app.use(express.static(__dirname + "/public"));
 
 app.get('/',(req,res) => {
   res.render('site_views/index',{key: process.env.GOOGLE_MAPS_SERVER_KEY});
 });
-
-app.post('/login',passport.authenticate('local-signin',{
-  successRedirect: '/good1', 
-  failureRedirect: '/bad1', 
-  failureFlash: true
-})
-);
-
-app.get('/logout',(req,res) => {
-  req.logout();
-  res.redirect('/');
-});
-
-app.get('/auth/facebook', passport.authenticate('facebook'));
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { successRedirect: '/success',
-                                      failureRedirect: '/failure' }));
   
 app.get('*',(req,res) => {
   res.render('site_views/error');
