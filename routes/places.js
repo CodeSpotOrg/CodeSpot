@@ -5,7 +5,30 @@ const express = require('express'),
 
 router.get('/',(req,res)=>{
 	console.log('Query',req.query);
-	// knex('places').where()
+	var place = req.query.place;
+	if (place.wifi) {
+		knex('places').where('wifi',true).then(wifiPlaces=>{
+			return wifiPlaces;
+		});
+	}
+	if (place.coffee) {
+		knex('places').where('coffee',true).then(coffeePlaces=>{
+			return coffeePlaces;
+		});
+	}
+	if (place.restrooms) {
+		knex('places').where('restrooms',true).then(restroomsPlaces=>{
+			return restroomsPlaces;
+		});
+	}
+	if (place.criteria) {
+		knex('places').where
+	}
+	var places = {}
+	places.wifi = wifiPlaces || 'none';
+	places.coffee = coffeePlaces || 'none';
+	places.restrooms = restroomsPlaces || 'none'; 
+	res.render('place_views/search',{places});
 });
 
 router.get("/new",(req,res)=>{
