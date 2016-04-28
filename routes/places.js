@@ -12,6 +12,20 @@ router.get("/new",(req,res)=>{
 	res.render('place_views/new')
 });
 
+router.get("/:id",(req,res)=>{
+  knex.select().from('places').where({id:req.params.id}).first().then(function(place){
+    knex.select().from('reviews').where({place_id:place.id}).then(function(reviews){
+      knex.select('user_id').from('reviews').where({place_id:place.id}).then(function(reviewUsers){
+        var userIds = []
+        reviewUsers.forEach((user)=>userIds.push(user.user_id))
+        knex.select('id','username','profile_pic').from('users').whereIn('id', userIds).then(function(users){
+          res.send(users)
+        })
+      })
+    })
+  });
+});
+
   router.post('/', (req,res) => {
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
     var key = '&key=' + process.env.GOOGLE_MAPS_SERVER_KEY;
