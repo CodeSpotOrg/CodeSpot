@@ -13,9 +13,11 @@ block content
       input(type="password", placeholder=" password",name="user[confirm]",required)
       input(type="email", placeholder="email(optional)",name="user[email]")
       input(type="url", placeholder="avatar.jpeg",name="user[img_url]") 
+      input(type='hidden',name='url')
       input(type="submit",value="Sign Up")   
   div
     form(action="/auth/login" method="POST")
       input(type="text", placeholder="username", name="user[username]",autofocus,required)  
       input(type="password", placeholder=" password",name="user[password]",required)
+      input(type='hidden',name='url')
       input(type="submit",value="Login")  
