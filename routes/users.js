@@ -9,9 +9,14 @@ require('../config/passport')(passport);
 
 router.get('/:id', authHelpers.ensureAuthorized, (req,res) => {
   knex('users').where('id', req.params.id).first().then(user => {
-    knex('reviews').where('user_id',user.id).innerJoin('places','places.id','reviews.place_id').then(reviews => {
-      res.render('user_views/show1',{user,reviews});
-    });
+    if (user) {
+      knex('reviews').where('user_id',user.id).innerJoin('places','places.id','reviews.place_id').then(reviews => {
+        res.render('user_views/show1',{user,reviews});
+      });
+    }
+    else {
+      res.redirect('/');
+    }
   })
 });
 
@@ -19,7 +24,6 @@ router.post('/',passport.authenticate('local-signup',{failureFlash: true}, (req,
   res.redirect(req.url); 
 })
 );
-
 
 router.put('/:id', (req,res) => {
   if (!password) {
@@ -39,4 +43,12 @@ router.put('/:id', (req,res) => {
   }
   res.redirect(`/users/${req.params.id}`);
 });
+
+router.delete('/:id',(req,res) => {
+  knex('users').where('id',req.params.id).del().then (() => {
+    req.logout();
+    res.redirect('/');
+  });
+});
+
 module.exports = router;

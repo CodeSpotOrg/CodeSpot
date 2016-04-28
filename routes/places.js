@@ -30,10 +30,10 @@ router.post('/', (req,res) => {
   });
 });
 
-  router.get('/data', (req,res) => {
-    knex('places').limit(10).then((places) => {
-      res.send({places});
-    });
+router.get('/data', (req,res) => {
+  knex('places').limit(10).then((places) => {
+    res.send({places});
+  });
 });
 
 module.exports = router;
