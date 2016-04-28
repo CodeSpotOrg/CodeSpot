@@ -36,6 +36,11 @@ router.get("/new",(req,res)=>{
 	res.render('place_views/new')
 });
 
+router.get('/data', (req,res) => {
+  knex('places').limit(10).then((places) => {
+    res.send({places});
+  });
+});
 
 router.get("/:id",(req,res)=>{
   knex('places').where({id:req.params.id}).first().then(place=>{
@@ -82,10 +87,5 @@ router.post('/', (req,res) => {
   });
 });
 
-router.get('/data', (req,res) => {
-  knex('places').limit(10).then((places) => {
-    res.send({places});
-  });
-});
 
 module.exports = router;

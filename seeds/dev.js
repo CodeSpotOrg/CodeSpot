@@ -36,7 +36,7 @@ exports.seed = function(knex, Promise) {
         knex('reviews').insert({id: 6, user_id: 3, place_id: 2, rating:4, wifi:true, restrooms:false, coffee:true, content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae quas nesciunt, cum dolorem. Amet quisquam doloribus illo quis provident sint quia recusandae ipsum molestias, architecto, modi pariatur consequuntur, laboriosam debitis?'}),
         knex('photos').insert({id: 1, user_id: 1, place_id: 1, url: 'http://galvanize-wp.s3.amazonaws.com/wp-content/uploads/2015/03/02192543/roof.jpg', caption: 'sunny day on the roof'}),
         knex('photos').insert({id: 2, user_id: 1, place_id: 1, url: 'http://galvanize-wp.s3.amazonaws.com/wp-content/uploads/2015/03/02192456/Kubik-141013-Galvanize_0475.jpg'}),
-        knex('photos').insert({id: 3, user_id: 2, place_id: 3, url: 'http://www.davidsanger.com/images/sanfrancisco/3-1012-58.stowlake.m.jpg'})
+        knex('photos').insert({id: 3, user_id: 2, place_id: 2, url: 'http://www.davidsanger.com/images/sanfrancisco/3-1012-58.stowlake.m.jpg'})
       )
     });
 };
