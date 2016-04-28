@@ -1,7 +1,7 @@
 const knex = require('../db/knex');
 
 module.exports = {
-	ensureAuthenticated:(req,res,next)=>{
+	ensureAuthenticated(req,res,next){
 		if (req.user) {
 			return next();
 		} else {
