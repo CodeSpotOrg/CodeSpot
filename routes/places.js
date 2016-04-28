@@ -44,7 +44,7 @@ router.get("/:id",(req,res)=>{
         var userIds = []
         reviewUsers.forEach((user)=>userIds.push(user.user_id))
         knex.select('id','username','profile_pic').from('users').whereIn('id', userIds).then(function(users){
-          res.render('/place_views/show')
+          res.render('place_views/show')
         })
       })
     })
