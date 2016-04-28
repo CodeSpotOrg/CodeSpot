@@ -47,7 +47,7 @@ app.get('/',(req,res) => {
         review.photo = photo.url;
       });
     })).then(()=> {
-      res.render('site_views/index',{key: process.env.GOOGLE_MAPS_SERVER_KEY, reviews});
+     res.render('site_views/index',{key: process.env.GOOGLE_MAPS_SERVER_KEY, reviews});
     });
   });
 });

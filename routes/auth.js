@@ -9,6 +9,20 @@ router.post('/login', authHelpers.setRedirect, passport.authenticate('local-sign
                                          failureRedirect: '/auth/login/failure',
                                          failureFlash: true})
 );
+router.post('/register', authHelpers.setRedirect, passport.authenticate('local-signup',{successRedirect: '/auth/register/success',
+                                         failureRedirect: '/auth/register/failure',
+                                         failureFlash: true})
+);
+router.get('/register/success',(req,res) => {
+  req.flash('msg', 'Registration successful')
+  res.redirect(req.session.url);
+});
+
+router.get('/register/failure',(req,res) => {
+  req.flash('msg', 'Registration failed')
+  res.redirect(req.session.url);
+});
+
 router.get('/login/success', (req,res) => {
   req.flash('msg', 'Login successful')
   res.redirect(req.session.url);
@@ -16,7 +30,6 @@ router.get('/login/success', (req,res) => {
 
 router.get('/login/failure', (req,res) => {
   req.flash('msg', 'Invalid username/password')
-  // console.log(req.flash('msg')console.log(req.flash('msg'))
   res.redirect(req.session.url);
 });
 
