@@ -21,7 +21,6 @@ module.exports = function(passport) {
     passwordField: 'user[password]'
   },
     (req,username,password,done) => {
-      req.session.url = req.body.url;
       knex('users').where('username', username).first().then(user => {
         if(!user){
           return done(null,false,{message: 'Invalid username'});
@@ -42,10 +41,10 @@ module.exports = function(passport) {
     function (req,username,password,done){
       knex('users').where('username', username).first().then(user => {
         if(user) {
-          return done(null,false, {message: 'Usersname already taken'})
+          return done(null,false)
         }
         if(password !== req.body.user.confirm) {
-          return done(null,false,{message: 'Passwords do not match'})
+          return done(null,false)
         }
         bcrypt.hash(password, SALT_WORK_FACTOR, (err,hash) => {
           knex('users').insert ({
@@ -54,7 +53,7 @@ module.exports = function(passport) {
             profile_pic: req.body.user.profile_pic,
             email: req.body.user.email
           }).returning('*').then(user => {
-            return done(null, user[0],{message: 'Sign up successful'});
+            return done(null, user[0]);
           }).catch(err => done(err));
         });
       })
@@ -69,14 +68,14 @@ module.exports = function(passport) {
   function(accessToken, refreshToken, profile, done) {
     knex('users').where('email',profile.emails[0].value).first().then (user => {
       if(user) {
-        return done (null, user, {message: `Welcome back ${user.username}`});
+        return done (null, user);
       }
       knex('users').insert({
         username: profile.displayName,
         email: profile.emails[0].value,
         profile_pic: profile.photos[0]
       }).returning('*').then(user => {
-          return done(null, user[0],{message: 'Sign up successful'});
+          return done(null, user[0]);
       }).catch(err => console.log(err));
     }).catch(err => console.log(err));
   }));

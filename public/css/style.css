@@ -34,9 +34,15 @@ body{
 	right: 0px;
 	padding: 20px;
   padding-top: 50px;
-  z-index: 2;
+  z-index: 3;
   width: 200px;
-  }
+}
+#msg {
+	position:absolute;
+	right:20px;
+	top:50px;
+	color:red;
+	z-index: 2;
 }
 
 #reviewCol{
