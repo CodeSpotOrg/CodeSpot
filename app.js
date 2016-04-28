@@ -29,15 +29,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+app.use(express.static(__dirname + "/public"));
+
 app.use(authHelpers.idUser);
+app.use(authHelpers.showFlashMessage);
 app.use('/users',routes.users);
 app.use('/places',routes.places);
 app.use('/places/:id/reviews',routes.reviews);
 app.use('/auth',routes.auth);
 
-app.use(express.static(__dirname + "/public"));
-
 app.get('/',(req,res) => {
+  //console.log(req.flash('msg'))
   res.render('site_views/index',{key: process.env.GOOGLE_MAPS_SERVER_KEY});
 });
   
