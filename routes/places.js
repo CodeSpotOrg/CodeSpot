@@ -18,8 +18,8 @@ router.get("/new",(req,res)=>{
     request(url + req.body.address + key, (error, response, data) => {
       if (!error && response.statusCode == 200) {
         knex('places').insert({
-          name: req.body.name,
-          address: req.body.address,
+          name: req.body.place.name,
+          address: req.body.place.address,
           lat: JSON.parse(data).results[0].geometry.location.lat,
           lng: JSON.parse(data).results[0].geometry.location.lng
         });
