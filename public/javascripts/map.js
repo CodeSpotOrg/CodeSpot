@@ -6,7 +6,7 @@ $(function() {
       center: {lat: 37.7749, lng: -122.4194}
     });
     $.get('/places/data').done(placesObj =>
-      placesObj.places.forEach((place,index) => {
+      placesObj.places.forEach(place => {
       var latLng = {lat: Number(place.lat), lng: Number(place.lng)};
       var marker = new google.maps.Marker({
         position: latLng,
@@ -17,7 +17,7 @@ $(function() {
       });
       var infowindow = new google.maps.InfoWindow({
         position: latLng,
-        content: `${place.name}'s Rating` 
+        content: `${place.name}` 
       });
       map.addListener('click', () => {
         if (currentWindow) {

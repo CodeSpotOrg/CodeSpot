@@ -17,9 +17,14 @@ block content
         else
           img#locationPhoto(alt="No Photos")
         br
-        - for (var i = review.avg; i > 0; i--) {
-          i.fa.fa-star(aria-hidden='true')
-        - }
+        div(id='#{review.id}_rating')
+          - for (var i = review.avg; i > 0; i--) {
+          i.fa.fa-star(aria-hidden='true' id="")
+          - }
         br
         a(href='/places/#{review.id}') see more
       .col-md-1.margin
+block scripts
+  //google maps
+  script(type="text/javascript", src="//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDa96Szw4-tYqXPA0wLy1LbKIOLOsqw5ns") 
+  script(src='javascripts/map.js')
