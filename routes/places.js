@@ -119,6 +119,25 @@ router.get("/new",(req,res)=>{
 	res.render('place_views/new')
 });
 
+router.get('/data', (req,res) => {
+  knex('places').limit(10).then((places) => {
+    res.send({places});
+  });
+});
+
+router.get("/:id",(req,res)=>{
+  knex('places').where({id:req.params.id}).first().then(place=>{
+    knex('photos').where({place_id:req.params.id}).then(placePhotos=>{
+    knex('places as p').select('p.*','r.*').where({'p.id':req.params.id})
+     .join('reviews as r','p.id','r.place_id')
+     .join('users as u','u.id','r.user_id').select('u.username','u.profile_pic').then(allReviews=>{
+        res.render('place_views/show',{reviews:allReviews, photos:placePhotos, thisPlace:place})
+      })
+    })
+  })
+});
+
+
 router.post('/', (req,res) => {
   var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
   var key = '&key=' + process.env.GOOGLE_MAPS_SERVER_KEY;
@@ -136,10 +155,5 @@ router.post('/', (req,res) => {
   });
 });
 
-router.get('/data', (req,res) => {
-  knex('places').limit(10).then((places) => {
-    res.send({places});
-  });
-});
 
 module.exports = router;

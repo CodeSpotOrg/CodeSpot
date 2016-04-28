@@ -6,10 +6,12 @@ html
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css', integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7', crossorigin='anonymous')
     // Optional theme
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css', integrity='sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r', crossorigin='anonymous')
-    // Latest compiled and minified JavaScript
-
+      
+    //font awesome
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css')
     link(rel='stylesheet', type='text/css', href='/css/style.css')
+    link(rel='stylesheet', type='text/css', href='/plugins/slick/slick.css')
+    link(rel='stylesheet', type='text/css', href='/plugins/slick/slick-theme.css')
 
   body
 
@@ -77,6 +79,9 @@ html
 
       // local javascript 
       script(src='/javascripts/loginMod.js')
-      script(type="text/javascript", src="//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDa96Szw4-tYqXPA0wLy1LbKIOLOsqw5ns") 
-      script(src='/javascripts/map.js')
+      
+      //slick slider plugin
+      script(src="/plugins/slick/slick.min.js" type="text/javascript")
+      //slick slider
+      script(src="/javascripts/slickSlider.js" type="text/javascript")
       block scripts
