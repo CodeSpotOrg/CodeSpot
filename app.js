@@ -45,7 +45,7 @@ app.get('/',(req,res) => {
       review.avg = Math.round(Number(review.avg));
       return knex('photos').where('photos.place_id',review.id).first().then(photo => {
         review.photo = photo.url;
-      });
+      }).catch(err => err)
     })).then(()=> {
      res.render('site_views/index',{key: process.env.GOOGLE_MAPS_SERVER_KEY, reviews});
     });
