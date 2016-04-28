@@ -1,0 +1,81 @@
+extends ../partials/header
+block style
+  link(rel='stylesheet', href='plugins/slick/slick.css')
+  link(rel='stylesheet', href='plugins/slick/slick-theme.css')
+
+
+block content
+  .container
+        .row
+          .col-xs-1
+          #swagShowBody.col-xs-10.text-center.body
+            h1 !name of place
+            table(align='center')
+              tr
+                td
+                  | Wifi:
+                  span#wifiCheck ☑
+                td
+                  | Coffee:
+                  span#coffeeCheck ☑
+                td
+                  | Coffee:
+                  span#coffeeCheck ☒
+            .slider(align='center')
+              // populate a div for every photo with this location id
+              div
+                img#slidePic(src='images/starbucks1.jpg')
+              div
+                img#slidePic(src='http://www.beyondthecreek.com/wp-content/uploads/2012/10/starbucks-macys-walnut-creek-inside.jpg')
+              div
+                img#slidePic(src='images/starbucks1.jpg')
+              div
+                img#slidePic(src='http://www.beyondthecreek.com/wp-content/uploads/2012/10/starbucks-macys-walnut-creek-inside.jpg')
+          .col-xs-1
+        .row.text-center
+          .col-xs-1
+          #content.col-xs-10.body
+            // review column
+            .col-xs-2
+            #reviewsColumn.col-xs-8
+              // populate one of these for every review with this location id
+              .row.review
+                // user info column
+                #userInfo.col-xs-5
+                  // replace with username
+                  b userName
+                  br
+                  // replace with avatar
+                  img#avatar(src='https://api.adorable.io/avatars/100/sweet.png')
+                  br
+                  // replace with link to user's profile
+                  a(href='users/id') User Profile
+                // review column
+                .col-xs-7
+                  // replace with review rating
+                  center ★★★☆☆
+                  br
+                  // replace with review content
+                  | Crucifix polaroid farm-to-table shabby chic. Four loko thundercats whatever butcher 8-bit bushwick. Yr sartorial vegan, gluten-free synth schlitz kickstarter YOLO wayfarers slow-carb sustainable umami mustache leggings. Mustache quinoa four loko kickstarter YOLO, intelligentsia gochujang ennui offal. Chambray readymade trust fund man braid ennui. Kinfolk skateboard iPhone fap YOLO kickstarter. Chillwave brunch flexitarian small batch.
+              .row.review
+                // user info column
+                #userInfo.col-xs-5
+                  // replace with username
+                  b userName
+                  br
+                  // replace with avatar
+                  img#avatar(src='https://api.adorable.io/avatars/100/sweet.png')
+                  br
+                  // replace with link to user's profile
+                  a(href='users/id') User Profile
+                // review column
+                .col-xs-7
+                  center ★★★☆☆
+                  br
+                  // replace with review content
+                  | Crucifix polaroid farm-to-table shabby chic. Four loko thundercats whatever butcher 8-bit bushwick. Yr sartorial vegan, gluten-free synth schlitz kickstarter YOLO wayfarers slow-carb sustainable umami mustache leggings. Mustache quinoa four loko kickstarter YOLO, intelligentsia gochujang ennui offal. Chambray readymade trust fund man braid ennui. Kinfolk skateboard iPhone fap YOLO kickstarter. Chillwave brunch flexitarian small batch.
+                  | Crucifix polaroid farm-to-table shabby chic. Four loko thundercats whatever butcher 8-bit bushwick. Yr sartorial vegan, gluten-free synth schlitz kickstarter YOLO wayfarers slow-carb sustainable umami mustache leggings. Mustache quinoa four loko kickstarter YOLO, intelligentsia gochujang ennui offal. Chambray readymade trust fund man braid ennui. Kinfolk skateboard iPhone fap YOLO kickstarter. Chillwave brunch flexitarian small batch.
+          .col-xs-2
+ block scripts
+  script(src="javascripts/slick-slider.js" type="text/javascript")
+
