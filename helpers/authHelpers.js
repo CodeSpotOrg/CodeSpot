@@ -10,22 +10,24 @@ module.exports = {
 		}
 	},
   ensureAuthorized (req,res,next){
-    if(+req.params.user_id === req.user.id)
-      return next();
-    else {
-      req.flash('msg',"You don't have permission to visit that page!")
-      res.redirect('/users')
+    if (req.user) {
+      if(req.params.id == req.user.id){
+        res.locals.owner = true;
+      }
+      else {
+        res.locals.owner = false;
+      }
     }
+    return next();
   },
   idUser (req,res,next){
     if(req.isAuthenticated()){
       res.locals.currentUser = req.user;
-      return next();
     }
     else {
       res.locals.currentUser = undefined;
-      return next();
     }
+    return next();
   },
   setRedirect(req,res,next) {
     if (req.body) {
@@ -34,8 +36,7 @@ module.exports = {
     return next();
   },
   showFlashMessage(req,res,next) {
-      res.locals.msg = req.flash('msg');
-      console.log(res.locals.msg)
+    res.locals.msg = req.flash('msg');
     return next();
   }
 };

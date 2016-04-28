@@ -54,7 +54,7 @@ html
                   a#loginButton(href='') Login
               else
                 li#userProfile
-                  a.page-scroll(href='/users' + currentUser.id) My Profile 
+                  a.page-scroll(href='/users/' + currentUser.id) My Profile 
                 li
                   a.page-scroll(href='/auth/logout') Log out
       #login-form
@@ -74,11 +74,11 @@ html
 
       script(src='https://code.jquery.com/jquery-2.1.4.min.js')
       script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js', integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS', crossorigin='anonymous')
-        
-      // bootbox
-      script(src='javascripts/bootbox.min.js')
+
       // local javascript 
-      script(src='javascripts/loginMod.js')
+      script(src='/javascripts/loginMod.js')
       script(type="text/javascript", src="//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDa96Szw4-tYqXPA0wLy1LbKIOLOsqw5ns") 
+
       script(src='javascripts/map.js')
+      //slick slider
       script(src="javascripts/slick-slider.js" type="text/javascript")

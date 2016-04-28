@@ -64,6 +64,7 @@ td{
 	overflow: hidden;
 	resize: none;
 }
+
 .slider{
 	height:300px;
 }
@@ -106,4 +107,8 @@ td{
 }
 #placeThumbnail{
 	height:100px;
+}
+
+.hidden {
+	display: none;
 }
