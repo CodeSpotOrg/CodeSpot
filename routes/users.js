@@ -10,8 +10,9 @@ require('../config/passport')(passport);
 router.get('/:id', authHelpers.ensureAuthorized, (req,res) => {
   knex('users').where('id', req.params.id).first().then(user => {
     if (user) {
-      knex('reviews').where('user_id',user.id).innerJoin('places','places.id','reviews.place_id').then(reviews => {
-        res.render('user_views/show1',{user,reviews});
+      knex('reviews').where('user_id',user.id).innerJoin('places','places.id','reviews.place_id')
+      .then(reviews => {
+        res.render('user_views/show',{user,reviews});
       });
     }
     else {

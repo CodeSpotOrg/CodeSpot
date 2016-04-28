@@ -43,6 +43,7 @@ router.get("/:id",(req,res)=>{
     knex('places as p').select('p.*','r.*').where({'p.id':req.params.id})
      .join('reviews as r','p.id','r.place_id')
      .join('users as u','u.id','r.user_id').select('u.username','u.profile_pic').then(allReviews=>{
+      console.log(place)
         res.render('place_views/show',{reviews:allReviews, photos:placePhotos, thisPlace:place})
       })
     })

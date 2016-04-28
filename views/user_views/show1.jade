@@ -10,7 +10,7 @@ block content
       if (reviews)
         each review in reviews
           h4=review.name
-          div= review.rating
+          div= review.rating +"/5"
           div= review.content
       else
         div This user has no reviews
