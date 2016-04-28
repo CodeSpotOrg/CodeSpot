@@ -73,8 +73,11 @@ html
           input(type='password',name='user[password]')
           input(type='hidden',name='url')
           input(type='submit' value='Sign in')
-        a(href="/auth/facebook")
-          div Login with Facebook
+        form(action="/auth/facebook", method='POST')
+          input(type='hidden',name='url')
+          input(type='submit', value='Login with Facebook')
+      if (msg)
+        #msg= msg[0]
       block content
 
       script(src='https://code.jquery.com/jquery-2.1.4.min.js')

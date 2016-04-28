@@ -5,7 +5,7 @@ module.exports = {
 		if (req.user) {
 			return next();
 		} else {
-			req.flash('message', 'Please login');
+			req.flash('msg', 'Please login');
 			req.redirect('/users/login')
 		}
 	},
@@ -13,7 +13,7 @@ module.exports = {
     if(+req.params.user_id === req.user.id)
       return next();
     else {
-      req.flash('success',"You don't have permission to visit that page!")
+      req.flash('msg',"You don't have permission to visit that page!")
       res.redirect('/users')
     }
   },
@@ -26,5 +26,16 @@ module.exports = {
       res.locals.currentUser = undefined;
       return next();
     }
-}
+  },
+  setRedirect(req,res,next) {
+    if (req.body) {
+      req.session.url = req.body.url;
+    }
+    return next();
+  },
+  showFlashMessage(req,res,next) {
+      res.locals.msg = req.flash('msg');
+      console.log(res.locals.msg)
+    return next();
+  }
 };
