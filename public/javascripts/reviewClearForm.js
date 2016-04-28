@@ -1,1 +1,1 @@
-$(document).ready(()=>{ $("#reviewInput").one("click", (e)=>$("#reviewInput").val(""))})
+$(document).ready(()=>{$("#reviewInput").one("click", (e)=>$("#reviewInput").val(""))})

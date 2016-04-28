@@ -1,0 +1,90 @@
+nav#mainNav.navbar.navbar-inverse.navbar-fixed-top
+        .container-fluid
+          .navbar-header
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand.page-scroll(href='#page-top') Codespot
+          .collapse.navbar-collapse
+            ul.nav.navbar-nav.navbar-right
+              li
+                // search bar
+                form.navbar-form.navbar-left.text-center(role='search')
+                  .form-group
+                    input.form-control(type='text', placeholder='Search')
+                    button.btn.btn-default(type='submit') Submit
+              li
+                a.page-scroll(href='#about') About
+              // if user isn't logged in
+              li#login
+                a.page-scroll(href='#services') Login
+              // if user is logged in
+              li#userProfile.hidden
+                a.page-scroll(href='#portfolio') My Profile
+              // if user is logged in
+              li.hidden
+                a.page-scroll(href='#contact') Log out
+    .container
+      .row
+        .col-xs-1
+        #swagShowBody.col-xs-10.text-center.body
+          h1 !name of place
+          .slider(align='center')
+            // populate a div for every photo with this location id
+            div
+              img#slidePic(src='images/starbucks1.jpg')
+            div
+              img#slidePic(src='http://www.beyondthecreek.com/wp-content/uploads/2012/10/starbucks-macys-walnut-creek-inside.jpg')
+            div
+              img#slidePic(src='images/starbucks1.jpg')
+            div
+              img#slidePic(src='http://www.beyondthecreek.com/wp-content/uploads/2012/10/starbucks-macys-walnut-creek-inside.jpg')
+        .col-xs-1
+      .row.text-center
+        .col-xs-1
+        .col-xs-10.body
+          // review column
+          #reviewsColumn.col-xs-8
+            // populate one of these for every review with this location id
+            .row.review
+              // user info column
+              .col-xs-5
+                // replace with username
+                b userName
+                br
+                // replace with avatar
+                img#avatar(src='https://api.adorable.io/avatars/100/sweet.png')
+                br
+                // replace with link to user's profile
+                a(href='users/id') User Profile
+              // review column
+              .col-xs-7
+                center ★★★☆☆
+                br
+                // replace with review content
+                | Crucifix polaroid farm-to-table shabby chic. Four loko thundercats whatever butcher 8-bit bushwick. Yr sartorial vegan, gluten-free synth schlitz kickstarter YOLO wayfarers slow-carb sustainable umami mustache leggings. Mustache quinoa four loko kickstarter YOLO, intelligentsia gochujang ennui offal. Chambray readymade trust fund man braid ennui. Kinfolk skateboard iPhone fap YOLO kickstarter. Chillwave brunch flexitarian small batch.
+          // rating/category column
+          .col-xs-1
+          #categories.col-xs-2
+            br
+            table(align='center')
+              // if true &#9745; else &#9746;
+              tr
+                td
+                  | Wifi:
+                  span#wifiCheck ☑
+              tr
+                td
+                  | Coffee:
+                  span#coffeeCheck ☑
+              tr
+                td
+                  | Restrooms:
+                  span#restroomCheck ☒
+        .col-xs-1
+    script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.4.0/jquery-migrate.min.js')
+    script(type='text/javascript', src='slick/slick.min.js')
+    script(src='test.js', type='text/javascript')
