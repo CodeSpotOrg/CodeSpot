@@ -19,7 +19,7 @@ block content
         br
         div(id='#{review.id}_rating')
           - for (var i = review.avg; i > 0; i--) {
-          i.fa.fa-star(aria-hidden='true' id="")
+          i.fa.fa-star(aria-hidden='true')
           - }
         br
         a(href='/places/#{review.id}') see more
