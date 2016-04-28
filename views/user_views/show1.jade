@@ -16,12 +16,12 @@ block content
         div This user has no reviews
       if (owner)
         button Edit profile
-        //should reveal form
-        form(action="/users/#{user.id}?_method=PUT",method="POST",class="hidden")
+        //should remove .hidden from form
+        form(action="/users/#{user.id}?_method=PUT",method="POST")
           input(type="text",value="#{user.username}",name="user[username]")
           input(type="text",value="#{user.profile_pic}")
           input(type="password", placeholder="password",name="user[password]")
           input(type="password",placeholder="confirm password",name="confirm")          
           input(type="submit")
-        form(action="/users/#{user.id}?_method=DELETE",method="POST",class="hidden")
+        form(action="/users/#{user.id}?_method=DELETE",method="POST",)
           input(type="submit",value="Delete Profile")

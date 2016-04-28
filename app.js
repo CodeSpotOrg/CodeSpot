@@ -12,7 +12,6 @@ const express = require("express"),
     passport = require('passport'),
     flash = require('connect-flash'),
     knex = require('./db/knex'),
-    request = require('request'),
     morgan = require("morgan"); 
 
 app.set('view engine', 'jade');
@@ -39,7 +38,6 @@ app.use('/places/:id/reviews',routes.reviews);
 app.use('/auth',routes.auth);
 
 app.get('/',(req,res) => {
-  //console.log(req.flash('msg'))
   res.render('site_views/index',{key: process.env.GOOGLE_MAPS_SERVER_KEY});
 });
   
