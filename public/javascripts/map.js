@@ -8,6 +8,7 @@ $(function() {
     $.get('/places/data').done(placesObj =>
       placesObj.places.forEach(place => {
       var latLng = {lat: Number(place.lat), lng: Number(place.lng)};
+      var title=place.name
       var marker = new google.maps.Marker({
         position: latLng,
         map: map,
@@ -15,9 +16,10 @@ $(function() {
         title: place.name,
         visible: true
       });
+      var contentString =`<h3>${place.name}</h3><a href="/places/${place.id}">Read Reviews</a>`
       var infowindow = new google.maps.InfoWindow({
         position: latLng,
-        content: `${place.name}` 
+        content: contentString
       });
       map.addListener('click', () => {
         if (currentWindow) {
