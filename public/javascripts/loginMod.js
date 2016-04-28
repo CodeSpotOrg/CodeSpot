@@ -1,6 +1,5 @@
 var options = [];
 
-
 $(document).ready(function(){
    $('input[name=url]').val(window.location.href);
     $('#loginButton').click(function(e) {

@@ -3,18 +3,27 @@ const express = require('express'),
       bcrypt = require('bcrypt'),
       SALT_WORK_FACTOR = 10,
       passport = require('passport'),
-      knex = require('../db/knex');
+      knex = require('../db/knex'),
+      authHelpers = require('../helpers/authHelpers');
 require('../config/passport')(passport);
 
-router .get('/:id', (req,res) => {
-  res.render('user_views/show');
+router.get('/:id', authHelpers.ensureAuthorized, (req,res) => {
+  knex('users').where('id', req.params.id).first().then(user => {
+    if (user) {
+      knex('reviews').where('user_id',user.id).innerJoin('places','places.id','reviews.place_id').then(reviews => {
+        res.render('user_views/show1',{user,reviews});
+      });
+    }
+    else {
+      res.redirect('/');
+    }
+  })
 });
 
 router.post('/',passport.authenticate('local-signup',{failureFlash: true}, (req,res) => {
-  res.redirect(req.url);
+  res.redirect(req.url); 
 })
 );
-
 
 router.put('/:id', (req,res) => {
   if (!password) {
@@ -34,4 +43,12 @@ router.put('/:id', (req,res) => {
   }
   res.redirect(`/users/${req.params.id}`);
 });
+
+router.delete('/:id',(req,res) => {
+  knex('users').where('id',req.params.id).del().then (() => {
+    req.logout();
+    res.redirect('/');
+  });
+});
+
 module.exports = router;
