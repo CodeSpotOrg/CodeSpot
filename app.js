@@ -38,19 +38,18 @@ app.use('/places/:id/reviews',routes.reviews);
 app.use('/auth',routes.auth);
 
 app.get('/',(req,res) => {
-  res.render('site_views/form')
-  // knex('places').select('places.*').avg('reviews.rating')
-  // .innerJoin('reviews','places.id','reviews.place_id')
-  // .groupBy('places.id').orderBy('places.id').then(reviews => {
-  //   Promise.all(reviews.map(review => {
-  //     review.avg = Math.round(Number(review.avg));
-  //     return knex('photos').where('photos.place_id',review.id).first().then(photo => {
-  //       review.photo = photo.url;
-  //     }).catch(err => err)
-  //   })).then(()=> {
-  //    res.render('site_views/index',{key: process.env.GOOGLE_MAPS_SERVER_KEY, reviews});
-  //   });
-  // });
+  knex('places').select('places.*').avg('reviews.rating')
+  .innerJoin('reviews','places.id','reviews.place_id')
+  .groupBy('places.id').orderBy('places.id').then(reviews => {
+    Promise.all(reviews.map(review => {
+      review.avg = Math.round(Number(review.avg));
+      return knex('photos').where('photos.place_id',review.id).first().then(photo => {
+        review.photo = photo.url;
+      }).catch(err => err)
+    })).then(()=> {
+     res.render('site_views/index',{key: process.env.GOOGLE_MAPS_SERVER_KEY, reviews});
+    });
+  });
 });
   
 app.get('*',(req,res) => {
