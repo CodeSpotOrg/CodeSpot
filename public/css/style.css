@@ -64,7 +64,9 @@ td{
 	overflow: hidden;
 	resize: none;
 }
-
+#searchResults{
+	margin-top:50px;
+}
 .hidden {
 	display: none;
 }
