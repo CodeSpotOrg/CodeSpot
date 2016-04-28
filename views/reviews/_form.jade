@@ -8,13 +8,13 @@ div
 	input(type="number" name="review[rating]" value= review ? review.rating : '')
 div
 	label wifi &nbsp
-	input(type="checkbox" name="review[]")
+	input(type="checkbox" value="true" name="review[wifi]")
 div
 	label Restrooms &nbsp
-	input(type="checkbox" name="review[]")
+	input(type="checkbox" value="true" name="review[restrooms]")
 div
 	label Coffee &nbsp
-	input(type="checkbox" name="review[]")
+	input(type="checkbox" value="true" name="review[coffee]")
 div
 	br
 	input(type="submit" value=val || 'Submit')

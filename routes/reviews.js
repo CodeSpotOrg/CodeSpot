@@ -10,17 +10,21 @@ router.get('/new',helpers.ensureAuthenticated,(req,res)=>{
 });
 
 router.post('/',(req,res)=>{
+	req.body.review.user_id = req.user.id;
+	req.body.review.place_id = req.params.id;
+	console.log(req.body.review);
 	knex('reviews').returning('place_id').insert(req.body.review).then(place=>{
-		knex('reviews').returning('*').where('place_id',place).limit(5).then(reviews=>{
+		knex('reviews').returning('*').where('place_id',place[0]).limit(5).then(reviews=>{
 			var updates = updChk(reviews);
+			console.log(updates);
 			if (updates['coffee'] > 2){
-				knex('places').where('id',place).update('coffee',true);
+				knex('places').where('id',place[0]).update('coffee',true);
 			}
 			if (updates['wifi'] > 2){
-				knex('places').where('id',place).update('wifi',true);
+				knex('places').where('id',place[0]).update('wifi',true);
 			} 
 			if (updates['restrooms'] > 2) {
-				knex('places').where('id',place).update('restrooms',true);
+				knex('places').where('id',place[0]).update('restrooms',true);
 			}
 			res.redirect('/');
 		});
@@ -29,28 +33,28 @@ router.post('/',(req,res)=>{
 
 var updChk = reviews=>{
 	return reviews.reduce((acc,review)=>{
-		if (!acc['coffee']) {
+		if (!acc['2']) {
 			acc['coffee'] = 0;
 		}
-		if (!acc['wifi']) {
-			acc['wifif'] = 0;
+		if (!acc['0']) {
+			acc['wifi'] = 0;
 		}
-		if (!acc['restrooms']) {
+		if (!acc['1']) {
 			acc['restrooms'] = 0;
 		}
 		for(cat in review){
 			switch(cat){
-			  case 'wifi':
+			  case '0':
 				if (review.cat) {
 					acc['wifi'] += 1;
 				}
 				break;
-			  case 'coffee':
+			  case '2':
 				if (review.cat) {
 					acc['coffee'] += 1;
 				}
 				break;
-			  case 'restrooms':
+			  case '1':
 				if (review.cat) {
 					acc['restrooms'] += 1;
 				}
