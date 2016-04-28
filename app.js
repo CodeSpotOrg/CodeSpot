@@ -17,7 +17,7 @@ const express = require("express"),
 app.set('view engine', 'jade');
 app.set('views',__dirname + '/views');
 
-app.use(morgan('short'));
+app.use(morgan('tiny'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 
