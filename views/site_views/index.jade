@@ -7,44 +7,19 @@ block content
           h2 find a workspace
           div#map-canvas
         .col-xs-1.margin
-      .row
-        .col-md-1.margin
-        .col-md-5.text-center.body.border-solid
-          h2 park hideaway
-          img#locationPhoto(src='http://www.corvallisadvocate.com/wp-content/uploads/2015/10/porta-potty.jpg')
-          br
+    .row
+    each review in reviews
+      .col-md-1.margin
+      .col-md-5.text-center.body.border-solid
+        h2=review.name
+        if (review.photo)
+          img#locationPhoto(src='#{review.photo}')
+        else
+          img#locationPhoto(alt="No Photos")
+        br
+        - for (var i = review.avg; i > 0; i--) {
           i.fa.fa-star(aria-hidden='true')
-          i.fa.fa-star(aria-hidden='true')
-          i.fa.fa-star(aria-hidden='true')
-          i.fa.fa-star(aria-hidden='true')
-          br
-          a(href='#') see more
-        .col-md-5.text-center.body.border-solid
-          h2 lowkey cafe
-          img#locationPhoto(src='https://getpreo.com/wp-content/uploads/2014/06/starbuckscrowd1.jpg')
-          br
-          i.fa.fa-star(aria-hidden='true')
-          i.fa.fa-star(aria-hidden='true')
-          br
-          a(href='#') see more
-        .col-md-1.margin
-      .row
-        .col-xs-1.margin
-        .col-md-5.text-center.body.border-solid
-          h2 bunch of nerds
-          img#locationPhoto(src='http://sfpl.org/images/about/blip/noevalley/noevalley9.jpg')
-          br
-          i.fa.fa-star(aria-hidden='true')
-          i.fa.fa-star(aria-hidden='true')
-          i.fa.fa-star(aria-hidden='true')
-          i.fa.fa-star(aria-hidden='true')
-          br
-          a(href='#') see more
-        .col-md-5.text-center.body.border-solid
-          h2 boutique shopping center
-          img#locationPhoto(src='http://joemiller.us/wp-content/uploads/WALMART-DFR-082213-7_40880253.jpg')
-          br
-          i.fa.fa-star(aria-hidden='true')
-          br
-          a(href='#') see more
-        .col-md-1.margin
+        - }
+        br
+        a(href='/places/#{review.id}') see more
+      .col-md-1.margin
