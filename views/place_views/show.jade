@@ -1,0 +1,71 @@
+extends ../partials/header
+block style
+  link(rel='stylesheet', href='plugins/slick/slick.css')
+  link(rel='stylesheet', href='plugins/slick/slick-theme.css')
+
+
+block content
+  .container
+        .row
+          .col-xs-1
+          #swagShowBody.col-xs-10.text-center.body
+            h1=thisPlace.name
+            table(align='center')
+              tr
+                td
+                  | Wifi:
+                  if (thisPlace.wifi===true)
+                    td ☑
+                  else
+                    td ☒
+                td
+                  | Coffee:
+                  if (thisPlace.coffee===true)
+                    td ☑
+                  else
+                    td ☒
+                td
+                  | Restrooms:
+                  if (thisPlace.restrooms===true)
+                    td ☑
+                  else
+                    td ☒
+            .slider(align='center')
+              // populate a div for every photo with this location id
+              each photo in photos
+                div
+                  img.slidePic(src='#{photo.url}')       
+          .col-xs-1
+
+        .row.text-center
+          .col-xs-1
+          #content.col-xs-10.body
+            // review column
+            .col-xs-2
+            #reviewsColumn.col-xs-8
+              // populate one of these for every review with this location id
+              each review in reviews
+                .row.review
+                  // user info column
+                  #userInfo.col-xs-5
+                    // replace with username
+                    b= review.username
+                    br
+                    // replace with avatar
+                    if (review.profile_pic)
+                      img#avatar(src='#{review.profile_pic}')
+                    else
+                      img#avatar(src='https://api.adorable.io/avatars/285/okay.png')
+                    br
+                    // replace with link to user's profile
+                    a(href='users/id') User Profile
+                  // review column
+                  .col-xs-7
+                    // replace with review rating
+                    center
+                      b=review.rating + "/5"
+                    br
+                    // replace with review content
+                    p=review.content
+
+          .col-xs-2
