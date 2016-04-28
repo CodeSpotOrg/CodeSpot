@@ -12,7 +12,7 @@ exports.seed = function(knex, Promise) {
     knex('users').del(), 
     
     // Inserts seed entries
-    knex('users').insert({id: 1,username: 'user1',email: 'email1@gmail.com',password:hash1}),
+    knex('users').insert({id: 1,username: 'user1',email: 'email1@gmail.com',password:hash1, profile_pic:'http://i.imgur.com/fREIhi6.jpg'}),
     knex('users').insert({id: 2,username: 'user2',email: 'email2@gmail.com',password:hash2}),
     knex('users').insert({id: 3,username: 'user3',email: 'email3@gmail.com',password:hash3})
   ).then (() => {
@@ -27,7 +27,7 @@ exports.seed = function(knex, Promise) {
         knex('places').insert({id: 2, name: 'Java Beach Cafe', address: '1396 La Playa St, San Francisco',lat: '37.7604',lng: '-122.50914',wifi:false,restrooms:true,coffee:false}),
         knex('places').insert({id: 3, name: 'Chinese Pavilion at Stow Lake', address: '-.4736, 7684', lat: '37.7684', lng: '-122.4736', wifi:true,restrooms:true,coffee:true}),
         knex('reviews').insert({id: 1, user_id: 1, place_id: 1, rating:4, wifi:true, restrooms:true, coffee:false, content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae quas nesciunt, cum dolorem. Amet quisquam doloribus illo quis provident sint quia recusandae ipsum molestias, architecto, modi pariatur consequuntur, laboriosam debitis?'}),
-        knex('reviews').insert({id: 7, user_id: 2, place_id: 1, rating:4, wifi:true, restrooms:true, coffee:false, content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae quas nesciunt, cum dolorem. Amet quisquam doloribus illo quis provident sint quia recusandae ipsum molestias, architecto, modi pariatur consequuntur, laboriosam debitis?'}),
+        knex('reviews').insert({id: 7, user_id: 2, place_id: 1, rating:4, wifi:true, restrooms:true, coffee:false, content: 'test'}),
 
         knex('reviews').insert({id: 2, user_id: 2, place_id: 2, rating:5, wifi:true, restrooms:true, coffee:true, content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae quas nesciunt, cum dolorem. Amet quisquam doloribus illo quis provident sint quia recusandae ipsum molestias, architecto, modi pariatur consequuntur, laboriosam debitis?'}),
         knex('reviews').insert({id: 3, user_id: 3, place_id: 2, rating:4, wifi:true, restrooms:true, coffee:false, content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae quas nesciunt, cum dolorem. Amet quisquam doloribus illo quis provident sint quia recusandae ipsum molestias, architecto, modi pariatur consequuntur, laboriosam debitis?'}),
