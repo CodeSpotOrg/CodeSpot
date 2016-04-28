@@ -65,6 +65,10 @@ td{
 	resize: none;
 }
 
+#searchResults{
+	margin-top:50px;
+}
+
 .slider{
 	height:300px;
 }

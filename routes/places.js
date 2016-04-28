@@ -5,31 +5,114 @@ const express = require('express'),
       knex = require('../db/knex');
 
 router.get('/',(req,res)=>{
-	console.log('Query',req.query);
+	// console.log('Query',req.query);
 	var place = req.query.place;
+	var places = {};
+
 	if (place.wifi) {
 		knex('places').where('wifi',true).then(wifiPlaces=>{
-			return wifiPlaces;
+			places.wifi = wifiPlaces;
+			console.log('Places view from wifi:',places);
+			if (place.coffee) {
+				knex('places').where('coffee',true).then(coffeePlaces=>{
+					places.coffee = coffeePlaces;
+					if (place.restrooms) {
+						knex('places').where('restrooms',true).then(restroomsPlaces=>{
+							places.restrooms = restroomsPlaces;
+							if (place.criteria) {
+								knex('places').where('name', 'like', `%${place.criteria}%`).then(name=>{
+									console.log(name);
+									places.criteria = name;
+									res.render('place_views/search',{places});
+								});
+							} else {
+								res.render('place_views/search',{places});
+							}
+						});
+					} else if(place.criteria){
+						knex('places').where('name', 'like', `%${place.criteria}%`).then(name=>{
+							console.log(name);
+							places.criteria = name;
+							res.render('place_views/search',{places});
+						});
+					} else {
+						res.render('place_views/search',{places});
+					}
+				});
+			} else if (place.restrooms) {
+				knex('places').where('restrooms',true).then(restroomsPlaces=>{
+					places.restrooms = restroomsPlaces;
+					if (place.criteria) {
+						knex('places').where('name', 'like', `%${place.criteria}%`).then(name=>{
+							console.log(name);
+							places.criteria = name;
+							res.render('place_views/search',{places});
+						});
+					} else {
+						res.render('place_views/search',{places});
+					}
+				});
+			} else if(place.criteria){
+				knex('places').where('name', 'like', `%${place.criteria}%`).then(name=>{
+					console.log(name);
+					places.criteria = name;
+					console.log('What I am sending:',places);
+					res.render('place_views/search',{places});
+				});
+			} else{
+				// console.log('What I am sending:',places);
+				res.render('place_views/search',{places});
+			}
 		});
-	}
-	if (place.coffee) {
+	} else if (place.coffee) {
 		knex('places').where('coffee',true).then(coffeePlaces=>{
-			return coffeePlaces;
+			places.coffee = coffeePlaces;
+			if (place.restrooms) {
+				knex('places').where('restrooms',true).then(restroomsPlaces=>{
+					places.restrooms = restroomsPlaces;
+					if (place.criteria) {
+						knex('places').where('name', 'like', `%${place.criteria}%`).then(name=>{
+							console.log(name);
+							places.criteria = name;
+							res.render('place_views/search',{places});
+						});
+					} else {
+						res.render('place_views/search',{places});
+					}
+				});
+			} else if (place.criteria) {
+				console.log(place.criteria);
+				knex('places').where('name', 'like', `%${place.criteria}%`).then(name=>{
+					console.log(name);
+					places.criteria = name;
+					res.render('place_views/search',{places});
+				});
+			} else {
+				res.render('place_views/search',{places});
+			}
 		});
-	}
-	if (place.restrooms) {
+	} else if (place.restrooms) {
 		knex('places').where('restrooms',true).then(restroomsPlaces=>{
-			return restroomsPlaces;
+			places.restrooms = restroomsPlaces;
+			if (place.criteria) {
+				knex('places').where('name', 'like', `%${place.criteria}%`).then(name=>{
+					console.log(name);
+					places.criteria = name;
+					res.render('place_views/search',{places});
+				});
+			} else {
+				res.render('place_views/search',{places});
+			}
 		});
+	} else if (place.criteria) {
+		knex('places').where('name', 'like', `%${place.criteria}%`).then(name=>{
+			console.log(name);
+			places.criteria = name;
+			res.render('place_views/search',{places});
+		});
+	} else {
+		res.render('place_views/search',{places});
 	}
-	if (place.criteria) {
-		knex('places').where
-	}
-	var places = {}
-	places.wifi = wifiPlaces || 'none';
-	places.coffee = coffeePlaces || 'none';
-	places.restrooms = restroomsPlaces || 'none'; 
-	res.render('place_views/search',{places});
 });
 
 router.get("/new",(req,res)=>{
@@ -54,21 +137,7 @@ router.get("/:id",(req,res)=>{
   })
 });
 
- // .groupBy('places.id','photos.url').orderBy('avg','asc').then(reviews => {
- //   reviews.forEach(review => {
- //     review.avg = Math.round(Number(review.avg));
- //   })
-  // knex.select().from('places').where({id:req.params.id}).first().then(function(place){
-  //   knex.select().from('reviews').where({place_id:place.id}).then(function(review){
-  //     knex.select('user_id').from('reviews').where({place_id:place.id}).then(function(reviewUsers){
-  //       var userIds = []
-  //       reviewUsers.forEach((user)=>userIds.push(user.user_id))
-  //       knex.select('id','username','profile_pic').from('users').whereIn('id', userIds).then(function(user){
-  //         res.render('place_views/show',{places:place, reviews:review, users:users})
-  //       })
-  //     })
-  //   })
-  // });
+
 router.post('/', (req,res) => {
   var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
   var key = '&key=' + process.env.GOOGLE_MAPS_SERVER_KEY;

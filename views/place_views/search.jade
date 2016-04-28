@@ -1,4 +1,12 @@
 extends ../partials/header
 block content
 	.container
-		h1 Search Results
+		.row
+			.col-xs-1
+			#searchResults.col-xs-10.body
+				center
+					h1 Search Results
+			.col-xs-1
+				each category in places
+					each place in category
+						h3= place.name
