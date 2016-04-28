@@ -16,7 +16,7 @@ block content
         div This user has no reviews
       if (owner)
         button Edit profile
-        //should reveal form
+        //should remove .hidden from form
         form(action="/users/#{user.id}?_method=PUT",method="POST",class="hidden")
           input(type="text",value="#{user.username}",name="user[username]")
           input(type="text",value="#{user.profile_pic}")
