@@ -7,7 +7,7 @@ block content
   a(href="/auth/facebook")
     div Log on with Facebook
   div
-    form(action="/register" method="POST")
+    form(action="/auth/register" method="POST")
       input(type="text", placeholder="username", name="user[username]",required)  
       input(type="password", placeholder=" password",name="user[password]",required)
       input(type="password", placeholder=" password",name="user[confirm]",required)
@@ -15,7 +15,7 @@ block content
       input(type="url", placeholder="avatar.jpeg",name="user[img_url]") 
       input(type="submit",value="Sign Up")   
   div
-    form(action="/login" method="POST")
+    form(action="/auth/login" method="POST")
       input(type="text", placeholder="username", name="user[username]",autofocus,required)  
       input(type="password", placeholder=" password",name="user[password]",required)
       input(type="submit",value="Login")  

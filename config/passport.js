@@ -9,11 +9,11 @@ module.exports = function(passport) {
   passport.serializeUser((user,done) => {
     done(null,user.id);
   });
-  passport.deserializeUser((id,done) => {  
-    knex('users').where('id',id).first().then(user => {
-      delete user.password;
-      done(null,user);
-    }).catch(err => console.log(err));
+  passport.deserializeUser((id,done) => { 
+      knex('users').where('id',id).first().then(user => {
+        delete user.password;
+        done(null,user);
+      }).catch(err => done(err));
   });
   passport.use('local-signin', new localStrategy({
     passReqToCallback: true,
