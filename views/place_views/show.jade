@@ -39,7 +39,13 @@ block content
               // populate a div for every photo with this location id
               each photo in photos
                 div
-                  img.slidePic(src='#{photo.url}')       
+                  img.slidePic(src='#{photo.url}')
+            br
+            br
+            br
+            br
+            a(href="/places/#{thisPlace.id}/reviews/new")
+              button#reviewButton.btn review this place
           .col-xs-1
 
         .row.text-center
