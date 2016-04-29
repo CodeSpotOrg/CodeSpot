@@ -132,7 +132,6 @@ router.get("/:id",(req,res)=>{
     knex('photos').where({place_id:req.params.id}).then(placePhotos=>{
     knex('places as p').select('p.*','r.*').where({'p.id':req.params.id})
      .join('reviews as r','p.id','r.place_id')
-<<<<<<< HEAD
      .join('users as u','u.id','r.user_id').select('u.username','u.profile_pic').then(allReviews=> {
         place.avg = Math.round(Number(place.avg));
         allReviews.forEach(review => {
@@ -142,11 +141,6 @@ router.get("/:id",(req,res)=>{
             }
           }
         });
-        console.log(allReviews)
-=======
-     .join('users as u','u.id','r.user_id').select('u.username','u.profile_pic').then(allReviews=>{
-      console.log(place)
->>>>>>> b5d3aa3e09e458ae4da0b6bb5958a85baaacb278
         res.render('place_views/show',{reviews:allReviews, photos:placePhotos, thisPlace:place})
       })
     })
