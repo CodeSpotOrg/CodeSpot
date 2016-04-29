@@ -50,10 +50,12 @@ html
                           input(type='checkbox' value='true' name='place[coffee]')
                           |  coffee
               li
-                a.page-scroll(href='#about') About
+                a.page-scroll(href='/about') About
               if (!currentUser)
                 li
                   a#loginButton(href='') Login
+                li
+                  a#registerButton(href='') Register
               else
                 li#userProfile
                   a.page-scroll(href='/users/' + currentUser.id) My Profile 
@@ -70,6 +72,19 @@ html
         form(action="/auth/facebook", method='POST')
           input(type='hidden',name='url')
           input(type='submit', value='Login with Facebook')
+      #register-form
+        form(action="/auth/register" method="POST")
+          label Username
+          input(type="text", placeholder="username", name="user[username]")  
+          label Password
+          input(type="password", placeholder=" password",name="user[password]")
+          input(type="password", placeholder="confirm password",name="user[confirm]")
+          label email
+          input(type="email", placeholder="email(optional)",name="user[email]")
+          label avatar
+          input(type="url", placeholder="avatar.jpeg",name="user[img_url]") 
+          input(type='hidden',name='url')
+          input(type="submit",value="Sign Up")
       if (msg)
         #msg= msg[0]
       block content

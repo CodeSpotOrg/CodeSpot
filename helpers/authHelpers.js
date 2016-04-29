@@ -6,7 +6,7 @@ module.exports = {
 			return next();
 		} else {
 			req.flash('msg', 'Please login');
-			req.redirect('/users/login')
+			res.redirect('/')
 		}
 	},
   ensureAuthorized (req,res,next){

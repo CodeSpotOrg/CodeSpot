@@ -127,11 +127,11 @@ router.get('/data', (req,res) => {
 
 router.get("/:id",(req,res)=>{
   knex('places').where('places.id', req.params.id).
-  innerJoin('reviews','reviews.place_id','places.id').select('places.*').first()
-  .avg('reviews.rating').groupBy('places.id').then(place=>{
+  innerJoin('reviews','reviews.place_id','places.id').first()
+  .avg('reviews.rating').groupBy('places.id').select('places.*').then(place=>{
     knex('photos').where({place_id:req.params.id}).then(placePhotos=>{
     knex('places as p').select('p.*','r.*').where({'p.id':req.params.id})
-     .join('reviews as r','p.id','r.place_id')
+     .join('reviews as r','r.place_id','p.id')
      .join('users as u','u.id','r.user_id').select('u.username','u.profile_pic').then(allReviews=> {
         place.avg = Math.round(Number(place.avg));
         allReviews.forEach(review => {
