@@ -7,5 +7,5 @@ block content
 				center
 					each category in places
 						each place in category
-							h3=place.address
+							a(href="/places/#{place.id}")=place.name
 			.col-xs-1
