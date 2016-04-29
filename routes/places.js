@@ -134,6 +134,14 @@ router.get("/:id",(req,res)=>{
      .join('reviews as r','p.id','r.place_id')
      .join('users as u','u.id','r.user_id').select('u.username','u.profile_pic').then(allReviews=> {
         place.avg = Math.round(Number(place.avg));
+        allReviews.forEach(review => {
+          if(req.isAuthenticated()) {
+            if(review.user_id == req.user.id) {
+              review.owner = true;
+            }
+          }
+        });
+        console.log(allReviews)
         res.render('place_views/show',{reviews:allReviews, photos:placePhotos, thisPlace:place})
       })
     })
