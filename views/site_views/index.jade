@@ -6,24 +6,28 @@ block content
         .col-xs-10.text-center.body
           h2 find a workspace
           div#map-canvas
+
         .col-xs-1.margin
     .row
-    each review in reviews
-      .col-md-1.margin
-      .col-md-5.text-center.body.border-solid
-        h2=review.name
-        if (review.photo)
-          img#locationPhoto(src='#{review.photo}')
-        else
-          img#locationPhoto(alt="No Photos")
-        br
-        div(id='#{review.id}_rating')
-          - for (var i = review.avg; i > 0; i--) {
-          i.fa.fa-star(aria-hidden='true')
-          - }
-        br
-        a(href='/places/#{review.id}') see more
-      .col-md-1.margin
+        .col-md-1.margin
+        .col-md-10.text-center.body.border-solid
+          #reviewContainer
+          each review in reviews
+            .indexReviews
+              h2=review.name
+              if (review.photo)
+                img#locationPhoto(src='#{review.photo}')
+              else
+                img#locationPhoto(alt="No Photos")
+              br
+              div(id='#{review.id}_rating')
+                - for (var i = review.avg; i > 0; i--) {
+                i.fa.fa-star(aria-hidden='true')
+                - }
+              br
+              a(href='/places/#{review.id}') see more
+        .col-md-1.margin
+
 block scripts
   //google maps
   script(type="text/javascript", src="//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDa96Szw4-tYqXPA0wLy1LbKIOLOsqw5ns") 

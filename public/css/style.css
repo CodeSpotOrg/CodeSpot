@@ -98,7 +98,18 @@ td{
 #content{
 	padding-bottom:50px;
 }
+.indexReviews{
+	margin:0;
+	width:45%;
+	box-sizing: border-box;
+	display:inline-block;
 
+
+}
+#reviewContainer{
+	box-sizing: border-box;
+	display:inline;
+}
 #reviewsColumn{
 	margin-top:25px;
 }
