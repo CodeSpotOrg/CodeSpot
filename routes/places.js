@@ -126,12 +126,21 @@ router.get('/data', (req,res) => {
 });
 
 router.get("/:id",(req,res)=>{
-  knex('places').where({id:req.params.id}).first().then(place=>{
+  knex('places').where('places.id', req.params.id).
+  innerJoin('reviews','reviews.place_id','places.id').select('places.*').first()
+  .avg('reviews.rating').groupBy('places.id').then(place=>{
     knex('photos').where({place_id:req.params.id}).then(placePhotos=>{
     knex('places as p').select('p.*','r.*').where({'p.id':req.params.id})
      .join('reviews as r','p.id','r.place_id')
-     .join('users as u','u.id','r.user_id').select('u.username','u.profile_pic').then(allReviews=>{
-      console.log(place)
+     .join('users as u','u.id','r.user_id').select('u.username','u.profile_pic').then(allReviews=> {
+        place.avg = Math.round(Number(place.avg));
+        allReviews.forEach(review => {
+          if(req.isAuthenticated()) {
+            if(review.user_id == req.user.id) {
+              review.owner = true;
+            }
+          }
+        });
         res.render('place_views/show',{reviews:allReviews, photos:placePhotos, thisPlace:place})
       })
     })

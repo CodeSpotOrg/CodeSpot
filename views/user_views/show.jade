@@ -40,29 +40,5 @@ block content
                           p=review.content
               
           .col-xs-2
-// =======
-//     if (user)
-//       if(user.profile_pic)
-//         #frame
-//           img(src="#{user.profile_pic}" alt="profile pic")
-//       h2= user.username
-//       h3 Reviews
-//       if (reviews)
-//         each review in reviews
-//           h4=review.name
-//           div= review.rating
-//           div= review.content
-//       else
-//         div This user has no reviews
-//       if (owner)
-//         button Edit profile
-//         //should reveal form
-//         form(action="/users/#{user.id}?_method=PUT",method="POST",class="hidden")
-//           input(type="text",value="#{user.username}",name="user[username]")
-//           input(type="text",value="#{user.profile_pic}")
-//           input(type="password", placeholder="password",name="user[password]")
-//           input(type="password",placeholder="confirm password",name="confirm")          
-//           input(type="submit")
-//         form(action="/users/#{user.id}?_method=DELETE",method="POST",class="hidden")
-//           input(type="submit",value="Delete Profile")
-// >>>>>>> e835a44817a0d75a6949e622a24e46f9d7fbd1c7
+block scripts
+  script(src='/javascripts/editReviews.js')

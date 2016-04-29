@@ -10,7 +10,6 @@ router.get('/new',helpers.ensureAuthenticated,(req,res)=>{
 });
 
 router.post('/',(req,res)=>{
-	console.log(req.body);
 	req.body.review.user_id = req.user.id;
 	req.body.review.place_id = req.params.id;
 	knex('reviews').returning('place_id').insert(req.body.review).then(place=>{
@@ -34,6 +33,18 @@ router.post('/',(req,res)=>{
 			res.redirect('/');
 		});
 	});
+});
+
+router.put('/:review_id',(req,res) => {
+  knex('reviews').where('id',req.params.review_id).update('content',req.body.content).then(() => {
+    res.redirect(req.body.url)
+  });
+});
+
+router.delete('/:review_id',(req,res) => {
+  knex('reviews').where('id',req.params.review_id).del().then(() => {
+    res.sendStatus(200);
+  })
 });
 
 var updChk = reviews=>{
