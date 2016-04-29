@@ -6,6 +6,12 @@ block content
           #swagShowBody.col-xs-10.text-center.body
             h1= user.username
             img#avatarBig(src='#{user.profile_pic}')
+            if (owner)
+              br
+              a(href="/user/#{user.id}/edit")
+                button.btn-btn
+                  b edit my profile
+
           .col-xs-1
         .row.text-center
           .col-xs-1
@@ -23,13 +29,14 @@ block content
                         b= review.name
                         br
                         // replace with first Image from photo table with this id
-                        img#placeThumbnail(src='#{}')
+                        img#placeThumbnail(src='#{review.photo}')
                         br
                         // replace with link to location
                         a(href='/places/#{review.place_id}') More reviews for this location
                       // review column
                       .col-xs-7
-                        center review
+                        center
+                          b=review.rating+'/5'
                           p=review.content
               
           .col-xs-2
