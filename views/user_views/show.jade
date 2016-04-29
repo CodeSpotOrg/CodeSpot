@@ -4,8 +4,14 @@ block content
         .row
           .col-xs-1
           #swagShowBody.col-xs-10.text-center.body
-            h1 userName
-            img#avatarBig(src='https://api.adorable.io/avatars/200/sweet.png')
+            h1= user.username
+            img#avatarBig(src='#{user.profile_pic}')
+            if (owner)
+              br
+              a(href="/user/#{user.id}/edit")
+                button.btn-btn
+                  b edit my profile
+
           .col-xs-1
         .row.text-center
           .col-xs-1
@@ -14,49 +20,25 @@ block content
             .col-xs-2
             #reviewsColumn.col-xs-8
               // populate one of these for every review with this user id
-              .row.review
-                // place info column
-                #userInfo.col-xs-5
-                  // replace with placenName
-                  b placeName
-                  br
-                  // replace with first Image from photo table with this id
-                  img#placeThumbnail(src='images/starbucks1.jpg')
-                  br
-                  // replace with link to location
-                  a(href='users/id') More reviews for this location
-                // review column
-                .col-xs-7
-                  center ★★★ύ☆
-                  br
-                  // replace with review content
-                  | Crucifix polaroid farm-to-table shabby chic. Four loko thundercats whatever butcher 8-bit bushwick. Yr sartorial vegan, gluten-free synth schlitz kickstarter YOLO wayfarers slow-carb sustainable umami mustache leggings. Mustache quinoa four loko kickstarter YOLO, intelligentsia gochujang ennui offal. Chambray readymade trust fund man braid ennui. Kinfolk skateboard iPhone fap YOLO kickstarter. Chillwave brunch flexitarian small batch.
+              if (reviews)
+                  each review in reviews
+                    .row.review
+                      // place info column
+                      #userInfo.col-xs-5
+                        // replace with placeName
+                        b= review.name
+                        br
+                        // replace with first Image from photo table with this id
+                        img#placeThumbnail(src='#{review.photo}')
+                        br
+                        // replace with link to location
+                        a(href='/places/#{review.place_id}') More reviews for this location
+                      // review column
+                      .col-xs-7
+                        center
+                          b=review.rating+'/5'
+                          p=review.content
+              
           .col-xs-2
-// =======
-//     if (user)
-//       if(user.profile_pic)
-//         #frame
-//           img(src="#{user.profile_pic}" alt="profile pic")
-//       h2= user.username
-//       h3 Reviews
-//       if (reviews)
-//         each review in reviews
-//           h4=review.name
-//           div= review.rating
-//           div= review.content
-//       else
-//         div This user has no reviews
-//       if (owner)
-//         button Edit profile
-//         //should reveal form
-//         form(action="/users/#{user.id}?_method=PUT",method="POST",class="hidden")
-//           input(type="text",value="#{user.username}",name="user[username]")
-//           input(type="text",value="#{user.profile_pic}")
-//           input(type="password", placeholder="password",name="user[password]")
-//           input(type="password",placeholder="confirm password",name="confirm")          
-//           input(type="submit")
-//         form(action="/users/#{user.id}?_method=DELETE",method="POST",class="hidden")
-//           input(type="submit",value="Delete Profile")
-// >>>>>>> e835a44817a0d75a6949e622a24e46f9d7fbd1c7
 block scripts
   script(src='/javascripts/editReviews.js')

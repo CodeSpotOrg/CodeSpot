@@ -132,6 +132,7 @@ router.get("/:id",(req,res)=>{
     knex('photos').where({place_id:req.params.id}).then(placePhotos=>{
     knex('places as p').select('p.*','r.*').where({'p.id':req.params.id})
      .join('reviews as r','p.id','r.place_id')
+<<<<<<< HEAD
      .join('users as u','u.id','r.user_id').select('u.username','u.profile_pic').then(allReviews=> {
         place.avg = Math.round(Number(place.avg));
         allReviews.forEach(review => {
@@ -142,6 +143,10 @@ router.get("/:id",(req,res)=>{
           }
         });
         console.log(allReviews)
+=======
+     .join('users as u','u.id','r.user_id').select('u.username','u.profile_pic').then(allReviews=>{
+      console.log(place)
+>>>>>>> b5d3aa3e09e458ae4da0b6bb5958a85baaacb278
         res.render('place_views/show',{reviews:allReviews, photos:placePhotos, thisPlace:place})
       })
     })
@@ -150,21 +155,45 @@ router.get("/:id",(req,res)=>{
 
 
 router.post('/', (req,res) => {
+	console.log('review body:',req.body.review)
   var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
   var key = '&key=' + process.env.GOOGLE_MAPS_SERVER_KEY;
   request(url + req.body.place.address + key, (error, response, data) => {
     if (!error && response.statusCode == 200) {
-      knex('places').insert({
+      knex('places').returning('id').insert({
         name: req.body.place.name,
         address: req.body.place.address,
+        wifi:req.body.review.wifi,
+      	restrooms:req.body.review.restrooms,
+      	coffee:req.body.review.coffee,
         lat: JSON.parse(data).results[0].geometry.location.lat,
         lng: JSON.parse(data).results[0].geometry.location.lng
-      }).then(()=> {
-        res.redirect('/places');
+      }).then(placeId=> {
+      	knex('reviews').insert({
+      		user_id:req.user.id,
+      		place_id:placeId[0],
+      		content:req.body.review.content,
+      		rating:req.body.review.rating,
+      		wifi:req.body.review.wifi,
+      		restrooms:req.body.review.restrooms,
+      		coffee:req.body.review.coffee
+      	}).then(()=>{
+      		knex('photos').insert({
+      			user_id:req.user.id,
+      			place_id:placeId[0],
+      			url:req.body.photo.url,
+      			caption:req.body.photo.caption
+      		}).then(()=>{
+				res.redirect('/');
+      		})
+
+      	})
       })
     }
   });
 });
+
+
 
 
 module.exports = router;

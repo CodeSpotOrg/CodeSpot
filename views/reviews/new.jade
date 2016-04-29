@@ -1,6 +1,40 @@
 extends ../partials/header
 block content
 	.container
-		h3 Add Review
-		form(action="/places/#{place.id}/reviews" method="POST")
-			include _form
+		.col-xs-1
+		.col-xs-10.body.text-center
+			h3 Add Review
+			form(action="/places/#{place.id}/reviews" method="POST")
+				.row.row-eq-height
+					.col-md-2
+					.col-md-4.text-center
+						input.newPlaceText(name='photo[url]', type='text', placeholder='Photo url')
+						input.newPlaceText(name='photo[caption]', type='text', placeholder='Photo caption')
+						br
+						table.text-left(align='center')
+							tr
+								td
+									input(name="review[wifi]" type="checkbox" value="true")
+									|  &nbsp wifi &nbsp
+								td
+									input(name="review[coffee]" type="checkbox" value="true")
+									|  &nbsp coffee &nbsp
+								td
+									input(name="review[restrooms]" type="checkbox" value="true")
+									|  &nbsp restrooms
+					#reviewCol.col-md-4
+						textarea#reviewInput(type='text', placeholder="test" name='review[content]') 
+						br
+						|                 		rating:
+						select(name='review[rating]')
+							option(value='1') 1/5
+							option(value='2') 2/5
+							option(value='3') 3/5
+							option(value='4') 4/5
+							option(value='5') 5/5
+					.col-md-2
+				br
+				button.btn(type='submit') Add review	
+
+// include _form
+		.col-xs-1

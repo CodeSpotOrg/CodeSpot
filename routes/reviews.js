@@ -10,6 +10,7 @@ router.get('/new',helpers.ensureAuthenticated,(req,res)=>{
 });
 
 router.post('/',(req,res)=>{
+	console.log(req.body);
 	req.body.review.user_id = req.user.id;
 	req.body.review.place_id = req.params.id;
 	knex('reviews').returning('place_id').insert(req.body.review).then(place=>{

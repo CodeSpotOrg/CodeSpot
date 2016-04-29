@@ -14,6 +14,7 @@ block content
             i.fa.fa-star(aria-hidden='true')
             - }
             br
+            h3=thisPlace.address
             table(align='center')
               tr
                 td
@@ -62,7 +63,7 @@ block content
                       img#avatar(src='https://api.adorable.io/avatars/285/okay.png')
                     br
                     // replace with link to user's profile
-                    a(href='users/id') User Profile     
+                    a(href='/users/#{review.user_id}') User Profile
                   // review column
                   .col-xs-7
                     // replace with review rating
