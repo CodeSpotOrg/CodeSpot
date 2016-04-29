@@ -35,6 +35,18 @@ router.post('/',(req,res)=>{
 	});
 });
 
+router.put('/:review_id',(req,res) => {
+  knex('reviews').where('id',req.paramas.review_id).update('content',req.body.content).then(() => {
+    res.redirect(req.body.url)
+  });
+});
+
+router.delete('/:review_id',(req,res) => {
+  knex('reviews').where('id',req.params.review_id).del().then(() => {
+    res.send(200);
+  })
+});
+
 var updChk = reviews=>{
 	return reviews.reduce((acc,review)=>{
 		if (acc['coffee'] === undefined) {

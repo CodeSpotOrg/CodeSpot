@@ -63,8 +63,6 @@ block content
                     br
                     // replace with link to user's profile
                     a(href='users/id') User Profile     
-                    if (review.owner)
-                      a(href='#') Edit Review
                   // review column
                   .col-xs-7
                     // replace with review rating
@@ -73,5 +71,10 @@ block content
                     br
                     // replace with review content
                     p=review.content
-
+                    if (review.owner)
+                      br
+                      a(href="" class="Edit" id="{review.id}") Edit Review 
+                      a(href="" class="Delete" id="{review.id}") Delete Review 
           .col-xs-2
+block scripts
+  script(src='/javascripts/editReviews.js')            
