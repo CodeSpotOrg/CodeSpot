@@ -10,6 +10,10 @@ block content
           .col-xs-1
           #swagShowBody.col-xs-10.text-center.body
             h1=thisPlace.name
+            - for (var i = thisPlace.avg; i > 0; i--) {
+            i.fa.fa-star(aria-hidden='true')
+            - }
+            br
             table(align='center')
               tr
                 td
