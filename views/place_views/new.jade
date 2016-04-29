@@ -12,18 +12,20 @@ block content
                 .col-md-4.text-center
                   input.newPlaceText(name='place[name]', type='text', placeholder='Spot name')
                   br
-                  input.newPlaceText(name='place[address]', type='text', placeholder='address')
+                  input.newPlaceText(name='photo[url]', type='text', placeholder='Photo url')
+                  input.newPlaceText(name='photo[caption]', type='text', placeholder='Photo caption')
+                  input.newPlaceText(name='place[address]', type='text', placeholder='Address')
                   br
                   table.text-left(align='center')
                     tr
                       td
-                        input(type='checkbox', name='review[wifi]/')
+                        input(name="review[wifi]" type="checkbox" value="true")
                         |  &nbsp wifi &nbsp
                       td
-                        input(type='checkbox', name='review[coffee]/')
+                        input(name="review[coffee]" type="checkbox" value="true")
                         |  &nbsp coffee &nbsp
                       td
-                        input(type='checkbox', name='review[restrooms]/')
+                        input(name="review[restrooms]" type="checkbox" value="true")
                         |  &nbsp restrooms
                 #reviewCol.col-md-4
                   textarea#reviewInput(type='text', name='review[content]') write a review here

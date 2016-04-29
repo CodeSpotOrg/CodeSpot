@@ -12,6 +12,7 @@ router.get('/:id', authHelpers.ensureAuthorized, (req,res) => {
     if (user) {
       knex('reviews').where('user_id',user.id).innerJoin('places','places.id','reviews.place_id')
       .then(reviews => {
+
         Promise.all(reviews.map(review => {
           return knex('photos').where('photos.place_id',review.place_id).first().then(photo => {
             review.photo = photo.url;
@@ -19,7 +20,7 @@ router.get('/:id', authHelpers.ensureAuthorized, (req,res) => {
         })).then(()=> {
           res.render('user_views/show',{user,reviews});
         });
-  })
+      })
     }
     else {
       res.redirect('/');
