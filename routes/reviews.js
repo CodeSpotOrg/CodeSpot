@@ -37,14 +37,13 @@ router.post('/',(req,res)=>{
 
 router.put('/:review_id',(req,res) => {
   knex('reviews').where('id',req.params.review_id).update('content',req.body.content).then(() => {
-  	console.log(req.body.url)
     res.redirect(req.body.url)
   });
 });
 
 router.delete('/:review_id',(req,res) => {
   knex('reviews').where('id',req.params.review_id).del().then(() => {
-    res.send(200);
+    res.sendStatus(200);
   })
 });
 
