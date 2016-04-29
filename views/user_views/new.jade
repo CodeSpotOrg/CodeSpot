@@ -1,0 +1,25 @@
+extends ../partials/header
+block content
+  #body.container
+        .row
+          .col-xs-1.margin
+          .col-xs-10.text-center.body
+            h1 New user
+            br
+            form(method='POST', action='/users')
+              .row.row-eq-height
+                .col-md-4
+                .col-md-4.text-center
+                  input.newPlaceText(name='user[username]', type='text', placeholder='Username')
+                  br
+                  input.newPlaceText(name='user[email]', type='text', placeholder='Email')
+                  input.newPlaceText(name='user[password]', type='password', placeholder='password')
+                  //- input.newPlaceText(name='user[profile_pic]', type='text', placeholder='Avatar URL')
+                  br
+                .col-md-4
+              br
+              button.btn(type='submit') Add place
+          .col-xs-1.margin
+
+block scripts
+script(src="javascripts/reviewClearForm.js")

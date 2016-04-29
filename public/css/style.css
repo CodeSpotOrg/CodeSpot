@@ -103,8 +103,9 @@ td{
 	width:45%;
 	box-sizing: border-box;
 	display:inline-block;
-
-
+}
+#newReviewBody{
+	margin-top:50px;
 }
 #reviewContainer{
 	box-sizing: border-box;

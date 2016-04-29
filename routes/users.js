@@ -7,6 +7,11 @@ const express = require('express'),
       authHelpers = require('../helpers/authHelpers');
 require('../config/passport')(passport);
 
+
+router.get('/new',(req,res)=>{
+  res.render('user_views/new'); 
+});
+
 router.get('/:id', authHelpers.ensureAuthorized, (req,res) => {
   knex('users').where('id', req.params.id).first().then(user => {
     if (user) {
@@ -28,9 +33,10 @@ router.get('/:id', authHelpers.ensureAuthorized, (req,res) => {
   })
 });
 
+
 router.post('/',passport.authenticate('local-signup',{failureFlash: true}, (req,res) => {
-  res.redirect(req.url); 
-})
+  res.redirect('req.url'); 
+  })
 );
 
 router.put('/:id', (req,res) => {
