@@ -6,7 +6,10 @@ $(document).ready(function(){
       e.preventDefault();
       $('#login-form').slideToggle('slow')
     })
- 
+    $('#registerButton').click(function(e) {
+      e.preventDefault();
+      $('#register-form').slideToggle('slow')
+    })
   $( '.dropdown-menu a' ).on( 'click', function( event ) {
 
    var $target = $( event.currentTarget ),
@@ -23,8 +26,7 @@ $(document).ready(function(){
    }
 
    $( event.target ).blur();
-      
-   console.log( options );
+
    return false;
   });
 })
