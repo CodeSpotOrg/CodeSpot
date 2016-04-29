@@ -19,7 +19,14 @@ block content
         //should remove .hidden from form
         form(action="/users/#{user.id}?_method=PUT",method="POST")
           input(type="text",value="#{user.username}",name="user[username]")
-          input(type="text",value="#{user.profile_pic}")
+          if (user.profile_pic)
+            input(type="text",value="#{user.profile_pic}")
+          else
+            input(type="text",placeholder="profile pic")
+          if (user.email)
+              input(type="text",value="#{user.email}")
+          else
+            input(type="text",placeholder="email")
           input(type="password", placeholder="password",name="user[password]")
           input(type="password",placeholder="confirm password",name="confirm")          
           input(type="submit")
