@@ -10,6 +10,10 @@ block content
           .col-xs-1
           #swagShowBody.col-xs-10.text-center.body
             h1=thisPlace.name
+            - for (var i = thisPlace.avg; i > 0; i--) {
+            i.fa.fa-star(aria-hidden='true')
+            - }
+            br
             h3=thisPlace.address
             table(align='center')
               tr
@@ -74,5 +78,10 @@ block content
                     br
                     // replace with review content
                     p=review.content
-
+                    if (review.owner)
+                      br
+                      a(href="" class="Edit" id="#{review.id}") Edit Review 
+                      a(href="" class="Delete" id="#{review.id}") Delete Review 
           .col-xs-2
+block scripts
+  script(src='/javascripts/editReviews.js')            
