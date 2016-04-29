@@ -5,10 +5,13 @@ block content
           .col-xs-1
           #swagShowBody.col-xs-10.text-center.body
             h1= user.username
-            img#avatarBig(src='#{user.profile_pic}')
+            if (user.email)
+              h4=user.email  
+            if (user.profile_pic)
+              img#avatarBig(src='#{user.profile_pic}')
             if (owner)
               br
-              a(href="/user/#{user.id}/edit")
+              a(href="/users/#{user.id}/edit")
                 button.btn-btn
                   b edit my profile
 
@@ -20,7 +23,7 @@ block content
             .col-xs-2
             #reviewsColumn.col-xs-8
               // populate one of these for every review with this user id
-              if (reviews)
+              if (reviews[0])
                   each review in reviews
                     .row.review
                       // place info column
@@ -38,7 +41,12 @@ block content
                         center
                           b=review.rating+'/5'
                           p=review.content
-              
+                          if (owner)
+                          br
+                          a(href="" class="Edit" id="#{review.id}" data-place="#{review.place_id}") Edit Review 
+                          a(href="" class="Delete" id="#{review.id}" data-place="#{review.place_id}") Delete Review 
+              else
+                h3 This user has no reviews
           .col-xs-2
 block scripts
   script(src='/javascripts/editReviews.js')

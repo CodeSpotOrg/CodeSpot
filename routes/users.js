@@ -10,9 +10,8 @@ require('../config/passport')(passport);
 router.get('/:id', authHelpers.ensureAuthorized, (req,res) => {
   knex('users').where('id', req.params.id).first().then(user => {
     if (user) {
-      knex('reviews').where('user_id',user.id).innerJoin('places','places.id','reviews.place_id')
+      knex('places').where('user_id',user.id).innerJoin('reviews','reviews.place_id','places.id')
       .then(reviews => {
-
         Promise.all(reviews.map(review => {
           return knex('photos').where('photos.place_id',review.place_id).first().then(photo => {
             review.photo = photo.url;
@@ -26,6 +25,9 @@ router.get('/:id', authHelpers.ensureAuthorized, (req,res) => {
       res.redirect('/');
     }
   })
+});
+router.get('/:id/edit', authHelpers.ensureAuthorized, (req,res) => {
+  console.log('beep')
 });
 
 router.post('/',passport.authenticate('local-signup',{failureFlash: true}, (req,res) => {
