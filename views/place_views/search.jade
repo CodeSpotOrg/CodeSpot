@@ -7,5 +7,6 @@ block content
 				center
 					each category in places
 						each place in category
-							a(href="/places/#{place.id}")=place.name
+							h1
+								a(href="/places/#{place.id}")=place.name
 			.col-xs-1
